@@ -4,7 +4,7 @@
 # Adjust based on your image layout and scale
 
 logger_ports = {
-    "cr1000xe.png":{
+    "img/cr1000xe.png":{
         "image": (500,223),
         "12V_0": (312, 30),
         "GND_0": (300, 30),
