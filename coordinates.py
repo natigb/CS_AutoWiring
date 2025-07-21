@@ -3,7 +3,7 @@ from tkinter import Canvas
 from PIL import Image, ImageTk
 from ports_coordenates import logger_ports
 
-datalogger_image = "img/cr1000xe.png"
+datalogger_image = "img/cr310.png"
 root = tk.Tk()
 root.title("Sensor Wiring Diagram")
 
@@ -32,12 +32,19 @@ except FileNotFoundError:
 coords_label = tk.Label(root, text="Mouse at (0, 0)", font=("Arial", 14))
 coords_label.pack(pady=10)
 
-
-
+# Update the label with current mouse coordinates
 def mouse_move(event):
-# Update the label with the current mouse coordinates
     coords_label.config(text=f"Mouse at ({event.x}, {event.y})")
-# Bind mouse motion to the handler
-root.bind('<Motion>', mouse_move)
-root.mainloop()
 
+# Copy coordinates to clipboard on right-click
+def copy_coordinates(event):
+    coord_text = f"{event.x}, {event.y}"
+    root.clipboard_clear()
+    root.clipboard_append(coord_text)
+    coords_label.config(text=f"Copied to clipboard: ({coord_text})")
+
+# Bind events
+root.bind('<Motion>', mouse_move)
+canvas.bind('<Button-3>', copy_coordinates)  # Right-click binding
+
+root.mainloop()

@@ -8,8 +8,8 @@ dataloggers = {
             "interfaces": 
                 ["MicroSD", "Ethernet", "RS232", "CSIO", "USB"],
             "ports": 
-                ["SE_1-H_1", "SE_2-L_1", "GND_1", "SE_3-H_2","SE_4-L_2", "GND_2","VX_1","VX_2", "GND_3", "SE_5-H_3", "SE_6-L_3", "GND_4", "SE_7-H_4", "SE_8-L_4", "GND_5","P_1", "GND_6", "P_2",
-                "SE_9-H_5", "SE_10-L_5", "GND_7","SE_11-H_6", "SE_12-L_6", "GND_8","VX_3","VX_4", "GND_9", "SE_13-H_7", "SE_14-L_7", "GND_10","SE_15-H_8", "SE_16-L_8", "GND_11",
+                ["H_1", "L_1", "GND_1", "H_2","L_2", "GND_2","VX_1","VX_2", "GND_3", "H_3", "L_3", "GND_4", "H_4", "L_4", "GND_5","P_1", "GND_6", "P_2",
+                "H_5", "L_5", "GND_7","H_6", "L_6", "GND_8","VX_3","VX_4", "GND_9", "H_7", "L_7", "GND_10","H_8", "L_8", "GND_11",
                 "5V_1", "G_1", "SW_1","SW_2", "12V_1", "G_2","C_1","C_2","C_3", "C_4","G_3","C_5","C_6", "RG_1", "C_7", "C_8","RG_2", "G_4"]
             }
         }
@@ -38,9 +38,15 @@ sensors = {
         {
             "SDI-12": [("White", "C", "SDI12", "U"), 
                     ("Brown", "12V"),  
-                    ("Black", "GND"),
-                    ("Clear", "GND"), 
-                    ("Gray", "GND")]
+                    ("Black", "G"),
+                    ("Clear", "G"), 
+                    ("Gray", "G")],
+            "RS-485": [("Yellow", "C"), 
+                    ("Blue", "C"),  
+                    ("Brown", "12V"),
+                    ("Black", "G"), 
+                    ("Gray", "G"), 
+                    ("Clear", "GND")]
         
             }
         },
@@ -51,16 +57,16 @@ sensors = {
         "connection": 
         {
             "SE-Measurement": [
-                    ("Blue", "U", "SE"), 
-                    ("Yellow", "GND"),  
-                    ("Black", "GND"),
-                    ("Green", "U", "C"), 
-                    ("Red", "12V"), 
-                    ("Shield", "GND")],
+                ("Blue", "U", "SE"), 
+                ("Yellow", "GND"),  
+                ("Black", "G"),
+                ("Green", "U", "C"), 
+                ("Red", "12V"), 
+                ("Shield", "GND")],
             "Diff-Measurement": [
-                ("Blue", "U", "DiffH"), 
-                ("Yellow", "U", "DiffL"),  
-                ("Black", "GND"),
+                ("Blue", "U", "H"), 
+                ("Yellow", "U", "L"),  
+                ("Black", "G"),
                 ("Green", "U", "C"), 
                 ("Red", "12V"), 
                 ("Shield", "GND")]
@@ -79,7 +85,23 @@ sensors = {
                     ("White", "GND"),  
                     ("Clear", "GND")]
         }
+        },
+
+        "CS616": {
+        "name": "30 cm Water Content Reflectometer",
+        "measurement" : "soil",
+        "model": "CS616",
+        "connection": 
+        {
+            "Default": [
+                    ("Red", "12V"), 
+                    ("Green", "H", "L", "U"),  
+                    ("Orange", "C"),  
+                    ("Black", "GND"),  
+                    ("Clear", "G")]
         }
+        }
+
     }
 
 

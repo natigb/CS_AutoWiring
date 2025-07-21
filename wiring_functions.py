@@ -47,16 +47,19 @@ def get_wiring_from_SC(filename):
     current_sensor = None
     ground_counter = {}
     g_counter = {}
-
-    with open(filename, "r", encoding="utf-8") as f:
+    image_name = "notfound.png"
+    start_flag = True
+    with open(filename, "r", encoding="latin-1") as f:
         lines = f.readlines()
 
     in_wiring_section = False
     for line in lines:
         line = line.strip()
 
-        if "-Cableado para" in line:
+        if "-Cableado para" in line and start_flag:
+            image_name = "img/"+line.split(" ")[2].strip("-").lower()+".png"
             in_wiring_section = True
+            start_flag = False
             continue
         if in_wiring_section and line.startswith("-Measurement"):
             break
@@ -77,8 +80,11 @@ def get_wiring_from_SC(filename):
                 ground_counter[current_sensor] = 1
                 g_counter[current_sensor] = 1
 
-    return wiring
-def get_wiring(datalogger, sensors):
+    return [wiring, image_name]
+
+
+
+def get_auto_wiring(datalogger, sensors):
     from copy import deepcopy
 
     # Make a modifiable copy of available ports
