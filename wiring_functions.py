@@ -1,4 +1,5 @@
 import re
+from collections import defaultdict
 
 count_gnd = 0
 count_g = 0
@@ -37,12 +38,21 @@ def normalize_port_name(port, ground_counter, g_counter, sensor):
     match_generic = re.match(r"^([A-Za-z]+)(\d+)$", port)
     if match_generic:
         return f"{match_generic.group(1)}_{match_generic.group(2)}"
+    
+    # SW12V → SW_12
+    match_sw = re.match(r"^(SW)(\d+)[A-Za-z]?$", port)
+    if match_sw:
+        return f"{match_sw.group(1)}_{match_sw.group(2)}"
 
     # Return as-is
     return port
 
 
 def get_wiring_from_SC(filename):
+    global count_gnd
+    global count_g
+    count_gnd = 0
+    count_g = 0
     wiring = {}
     current_sensor = None
     ground_counter = {}
@@ -84,51 +94,38 @@ def get_wiring_from_SC(filename):
 
 
 
-def get_auto_wiring(datalogger, sensors):
-    from copy import deepcopy
-
-    # Make a modifiable copy of available ports
-    available_ports = deepcopy(datalogger["connection"]["ports"])
-    used_ports = set()
-
-    def find_and_assign(protocol_wires, allow_shared_sdi=False):
-        assigned = {}
-        temp_used = set()
-
-        for wire in protocol_wires:
-            color = wire[0]
-            candidates = wire[1:]
-
-            port_found = False
-            for port_type in candidates:
-                for port in available_ports:
-                    if port_type in port:
-                        # Shared allowed only for SDI-12-type ports
-                        if port not in used_ports or (allow_shared_sdi and "SDI" in port_type):
-                            assigned[port] = color
-                            if not (allow_shared_sdi and "SDI" in port_type):
-                                temp_used.add(port)
-                            port_found = True
-                            break
-                if port_found:
-                    break
-
-            if not port_found:
-                return None  # Protocol failed: some wire has no available port
-
-        used_ports.update(temp_used)
-        return assigned
-
+def get_auto_wiring(datalogger_ports, sensors):
+    available_ports = list(datalogger_ports.keys())[1:]
     wiring = {}
-
-    for sensor_name, sensor in sensors.items():
-        protocols = sensor["connection"]
-
-        for protocol_name, protocol_wires in protocols.items():
-            allow_shared = protocol_name == "SDI-12"
-            assignment = find_and_assign(protocol_wires, allow_shared_sdi=allow_shared)
-            if assignment:
-                wiring[sensor_name] = assignment
-                break  # Use only first successful protocol
+    for sensor_name in sensors:
+        object = {sensor_name:{}}
+         
+        for color in sensors[sensor_name]:
+            ports = sensors[sensor_name][color]
+            for port in ports:
+                port_index= find_port_match_index(available_ports, port)
+                dl_port = "not connected"
+                if port_index != -1:
+                    dl_port = available_ports[port_index]
+                    object[sensor_name].update({dl_port : color})
+                    available_ports.pop(port_index)
+                    
+                    break
+        
+        wiring.update(object)
+    #print(datalogger_ports[0])
 
     return wiring
+
+
+def get_port_type(port):
+    return port.split("_")[0]
+
+def find_port_match_index(port_list, port):
+    for i in range(0, len(port_list)):
+
+        if(get_port_type(port_list[i]) == port):
+            #print(str(i) + ":" + port_list[i] + "-" + port)
+            return i
+        
+    return -1

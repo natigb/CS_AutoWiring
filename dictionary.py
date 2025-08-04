@@ -1,6 +1,6 @@
 
 dataloggers = { 
-      "CR100Xe": {
+      "CR1000Xe": {
         "model": "CR1000Xe",
         "connection": 
             {
@@ -15,7 +15,7 @@ dataloggers = {
         }
     }
   
-sensors = {
+sensors2 = {
         "05103": {
         "name": "WS_WD",
         "measurement" : "wind",
@@ -24,7 +24,7 @@ sensors = {
         {
         "SDI-12": [("Red", "U", "P", "PLL"), 
                     ("Black", "GND"), 
-                    ("Green", "U", "SE"),
+                    ("Green", "U", "H", "L"),
                     ("Blue", "U", "EX", "VX"), 
                     ("White", "GND"), 
                     ("Clear", "GND")]
@@ -36,7 +36,7 @@ sensors = {
         "model": "TempVue20",
         "connection": 
         {
-            "SDI-12": [("White", "C", "SDI12", "U"), 
+            "SDI-12": [("White", "C", "H", "L", "U"), 
                     ("Brown", "12V"),  
                     ("Black", "G"),
                     ("Clear", "G"), 
@@ -57,7 +57,7 @@ sensors = {
         "connection": 
         {
             "SE-Measurement": [
-                ("Blue", "U", "SE"), 
+                ("Blue", "U", "H", "L"), 
                 ("Yellow", "GND"),  
                 ("Black", "G"),
                 ("Green", "U", "C"), 
@@ -100,9 +100,50 @@ sensors = {
                     ("Black", "GND"),  
                     ("Clear", "G")]
         }
-        }
+        },
+
 
     }
-
-
-
+sensors = {
+    "05103": {
+        
+            "Red": ("U", "P", "PLL"), 
+            "Black": ("GND",), 
+            "Green": ("U", "H", "L"),
+            "Blue": ("U", "EX", "VX"), 
+            "White": ("GND",), 
+            "Clear": ("GND",)
+        
+    },
+    "TempVue20": {
+            "White": ("C", "H", "L", "U"),
+            "Brown": ("12V",),
+            "Black": ("G",),
+            "Clear": ("G",),
+            "Gray": ("G",)
+        
+    },
+    "CS100": {
+            "Blue": ("U", "H", "L"),
+            "Yellow": ("GND",),
+            "Black": ("G",),
+            "Green": ("U", "C"),
+            "Red": ("12V",),
+            "Shield": ("GND",)
+        
+    },
+    "TE525": {
+            "Black": ("P", "U"),
+            "White": ("GND",),
+            "Clear": ("GND",)
+    
+    },
+    "CS616": {
+            "Red": ("12V",),
+            "Green": ("H", "L", "U"),
+            "Orange": ("C",),
+            "Black": ("GND",),
+            "Clear": ("G",)
+        
+    },
+}

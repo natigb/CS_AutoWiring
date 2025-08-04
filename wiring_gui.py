@@ -119,4 +119,3 @@ def draw_wiring_diagram_gui(wiring, datalogger_image):
 
     root.bind('<Motion>', mouse_move)
 
-    # ❌ DO NOT use root.mainloop() here!

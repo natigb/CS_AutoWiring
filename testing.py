@@ -1,14 +1,9 @@
-from dictionary import dataloggers, sensors
-from wiring_functions import get_wiring_from_SC
+from dictionary import sensors
+from ports_coordenates import logger_ports
+from wiring_functions import get_wiring_from_SC, get_auto_wiring
 from wiring_gui import draw_wiring_diagram_gui
 
 #wiring = get_wiring(dataloggers["CR100Xe"], sensors)
-wiring = get_wiring_from_SC("C:/Users/NataliaGonzalezBermu/Documents/shortcut/tets.DEF")
+wiring = get_auto_wiring(logger_ports["img/cr1000x.png"], sensors)
 print(wiring)
-draw_wiring_diagram_gui(wiring[0], wiring[1])
-wiring = get_wiring_from_SC("C:/Users/NataliaGonzalezBermu/Documents/shortcut/cr6test.DEF")
-print(wiring)
-draw_wiring_diagram_gui(wiring[0], wiring[1])
-wiring = get_wiring_from_SC("C:/Users/NataliaGonzalezBermu/Documents/shortcut/cr350test.DEF")
-print(wiring)
-draw_wiring_diagram_gui(wiring[0], wiring[1])
+
