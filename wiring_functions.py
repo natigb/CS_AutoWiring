@@ -57,6 +57,7 @@ def get_wiring_from_SC(filename):
     current_sensor = None
     ground_counter = {}
     g_counter = {}
+    sensor_counter = 0
     image_name = "notfound.png"
     start_flag = True
     with open(filename, "r", encoding="latin-1") as f:
@@ -85,16 +86,19 @@ def get_wiring_from_SC(filename):
                 wiring[current_sensor][normalized_port] = color
 
             else:
-                current_sensor = line.split(" (")[0].strip()
+                current_sensor = str(sensor_counter)+"-"+line.split(" (")[0].strip()
                 wiring[current_sensor] = {}
                 ground_counter[current_sensor] = 1
                 g_counter[current_sensor] = 1
+                sensor_counter+=1
 
     return [wiring, image_name]
 
 
-
+def get_auto_wiring_aux():
+    return
 def get_auto_wiring(datalogger_ports, sensors):
+
     available_ports = list(datalogger_ports.keys())[1:]
     wiring = {}
     for sensor_name in sensors:

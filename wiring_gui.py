@@ -5,8 +5,14 @@ from ports_coordenates import logger_ports
 import pyautogui
 import time  
 from tkinter import filedialog
+
+"""
+An example of wiring form
+{'237': {'GND_1': 'Purple', 'GND_2': 'Clear', 'H_1': 'Red', 'VX_1': 'Black'}, 'SnowVUE10': {'C_1': 'White', 'G_1': 'Black', 'G_2': 'Clear', '12V': 'Brown'}, 'JC Depth': {'GND_3': 'Clear', 'L_2': 'Brown', 'H_2': 'White', 'C_2': 'Green', 'G_3': 'Black', '12V': 'Red'}, 'ClimaVUE50': {'C_1': 'White', 'G_4': 'Black', 'G_5': 'Clear', '12V': 'Brown'}}
+"""
 def draw_wiring_diagram_gui(wiring, datalogger_image):
-    root = tk.Toplevel()  # ✅ Use Toplevel instead of Tk
+    
+    root = tk.Toplevel()  
     root.title("Sensor Wiring Diagram")
 
     canvas_width = 1400
@@ -15,7 +21,7 @@ def draw_wiring_diagram_gui(wiring, datalogger_image):
     canvas.pack()
 
     # Datalogger image position
-    center_x = canvas_width // 2
+    center_x = canvas_width // 2 
     center_y = canvas_height - (canvas_height // 3)
     logger_width = logger_ports[datalogger_image]["image"][0]
     logger_height = logger_ports[datalogger_image]["image"][1]
@@ -25,7 +31,7 @@ def draw_wiring_diagram_gui(wiring, datalogger_image):
     try:
         image = Image.open(datalogger_image).resize((logger_width, logger_height))
         logger_img = ImageTk.PhotoImage(image)
-        canvas.image = logger_img  # ✅ keep reference to avoid "image doesn't exist" bug
+        canvas.image = logger_img 
         canvas.create_image(center_x, center_y, image=logger_img)
     except FileNotFoundError:
         canvas.create_rectangle(center_x - 100, center_y - 100,

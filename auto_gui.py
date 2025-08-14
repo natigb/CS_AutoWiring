@@ -6,8 +6,9 @@ PRIMARY_COLOR = "#EABE0D"
 DARK_COLOR = "#4D4D4D"
 WHITE = "#FFFFFF"
 FONT = ("Segoe UI", 12, "bold")
+sensor_counter=0
 def open_selection_interface():
-    selection_list = []
+    selection_list = {}
     top = tk.Toplevel()
     top.title("Select Datalogger and Sensor")
     top.geometry("650x750")
@@ -47,13 +48,20 @@ def open_selection_interface():
     display_box.pack()
 
     def add_selection():
-        selection = {
-            "datalogger": datalogger_var.get(),
-            "sensor": sensor_var.get(),
-            "protocol": protocol_var.get()
-        }
-        selection_list.append(selection)
-        display_box.insert(tk.END, f"{selection['sensor']} ({selection['protocol']}) on {selection['datalogger']}\n")
+        global sensor_counter
+        sensor = str(sensor_counter)+"-"+sensor_var.get()
+        protocol = protocol_var.get()
+        connections = sensors2[sensor_var.get()]["connection"][protocol]
+        datalogger = datalogger_var.get()
+
+        connections_format={}
+        for item in connections:
+            connections_format[item[0]]=item[1:]
+            
+        selection_list[sensor]= connections_format
+        #selection_list.append(selection)
+        sensor_counter+=1   
+        display_box.insert(tk.END, f"{sensor} ({protocol}) on {datalogger}\n")
 
     def save_selections():
         #fromato de sensores y datalogger
@@ -66,7 +74,7 @@ def open_selection_interface():
     #print("ddd")
     top.grab_set()
     top.wait_window() 
-    return selection_list
+    return [datalogger_var.get(), selection_list]
 
 
 # # Main window (for testing)

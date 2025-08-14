@@ -1,8 +1,9 @@
 import tkinter as tk
 from tkinter import filedialog, Menu, ttk
-from wiring_functions import get_wiring_from_SC
+from wiring_functions import get_wiring_from_SC, get_auto_wiring
 from wiring_gui import draw_wiring_diagram_gui
 from edit_gui import open_edit_interface
+from ports_coordenates import logger_ports
 import os
 from auto_gui import open_selection_interface
 # ------------------- Colors and Style -------------------
@@ -28,8 +29,8 @@ def choose_def_file():
 def automatic_action():
     global wiring
     selection = open_selection_interface()
-    wiring = selection
-    print(wiring)
+    wiring = [get_auto_wiring(logger_ports[selection[0]], selection[1]), selection[0]]
+    print("from main: ", wiring)
     result_label.config(text="auto wiring")
 
 def edit_action():
