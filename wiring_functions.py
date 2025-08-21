@@ -94,33 +94,27 @@ def get_wiring_from_SC(filename):
 
     return [wiring, image_name]
 
-
-def get_auto_wiring_aux():
-    return
 def get_auto_wiring(datalogger_ports, sensors):
 
     available_ports = list(datalogger_ports.keys())[1:]
     wiring = {}
     for sensor_name in sensors:
         object = {sensor_name:{}}
-         
         for color in sensors[sensor_name]:
+            dl_port = "no ports left"
             ports = sensors[sensor_name][color]
             for port in ports:
                 port_index= find_port_match_index(available_ports, port)
-                dl_port = "not connected"
                 if port_index != -1:
                     dl_port = available_ports[port_index]
-                    object[sensor_name].update({dl_port : color})
                     available_ports.pop(port_index)
-                    
                     break
-        
+                else:
+                    dl_port = color
+            object[sensor_name].update({dl_port : color})   
         wiring.update(object)
-    #print(datalogger_ports[0])
-
+    
     return wiring
-
 
 def get_port_type(port):
     return port.split("_")[0]

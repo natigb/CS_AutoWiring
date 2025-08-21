@@ -3,9 +3,11 @@ from tkinter import filedialog, Menu, ttk
 from wiring_functions import get_wiring_from_SC, get_auto_wiring
 from wiring_gui import draw_wiring_diagram_gui
 from edit_gui import open_edit_interface
+from add_sensor_gui import open_add_sensor_interface
 from ports_coordenates import logger_ports
-import os
+import os, sys
 from auto_gui import open_selection_interface
+
 # ------------------- Colors and Style -------------------
 PRIMARY_COLOR = "#EABE0D"
 DARK_COLOR = "#4D4D4D"
@@ -35,21 +37,35 @@ def automatic_action():
 
 def edit_action():
     global wiring
-    result = open_edit_interface(wiring[0])
-    if result:
-        wiring[0] = result
-    print(wiring)
-    result_label.config(text="Edited wiring")
+    if (wiring == "no wires"):
+        result_label.config(text="no wiring selected")
+    else:
+        result = open_edit_interface(wiring[0])
+        if result:
+            wiring[0] = result
+        print(wiring)
+        result_label.config(text="Edited wiring")
+
+def add_sensor():
+    open_add_sensor_interface()
+    result_label.config(text="Add sensor")
+
 
 def draw():
     global wiring
     print(wiring)
-    draw_wiring_diagram_gui(wiring[0], wiring[1])
+    if (wiring == "no wires"):
+        result_label.config(text="no wiring selected")
+    else:
+        draw_wiring_diagram_gui(wiring[0], wiring[1])
 
+def restart_program():
+    python = sys.executable
+    os.execv(python, [python] + sys.argv)
 # ------------------- Main UI -------------------
 root = tk.Tk()
 root.title("Wiring Tool")
-root.geometry("450x250")
+root.geometry("600x250")
 root.configure(bg=DARK_COLOR)
 
 # Style
@@ -67,16 +83,20 @@ style.configure(
     font= FONT
 )
 # Menu bar
-menubar = Menu(root, bg=WHITE, fg=DARK_COLOR, activebackground=PRIMARY_COLOR, activeforeground=DARK_COLOR)
-file_menu = Menu(menubar, tearoff=0, bg=WHITE, fg=DARK_COLOR)
+menubar = Menu(root, bg=PRIMARY_COLOR, fg=WHITE, activebackground=PRIMARY_COLOR, activeforeground=DARK_COLOR)
+
+file_menu = Menu(menubar, tearoff=0, bg=WHITE, fg=DARK_COLOR, activebackground=PRIMARY_COLOR, activeforeground=DARK_COLOR)
 file_menu.add_command(label="Open from ShortCut", command=choose_def_file)
-tools_menu = Menu(menubar, tearoff=0, bg=WHITE, fg=DARK_COLOR)
-tools_menu.add_command(label="Automatic", command=automatic_action)
+file_menu.add_command(label="New Wiring", command=automatic_action)
+
+tools_menu = Menu(menubar, tearoff=0, bg=WHITE, fg=DARK_COLOR, activebackground=PRIMARY_COLOR, activeforeground=DARK_COLOR)
 tools_menu.add_command(label="Edit", command=edit_action)
+tools_menu.add_command(label="Add Sensor", command=add_sensor)
 
 menubar.add_cascade(label="File", menu=file_menu)
 menubar.add_cascade(label="Tools", menu=tools_menu)
 root.config(menu=menubar)
+
 
 # ------------------- Layout -------------------
 frame = ttk.Frame(root, padding=20, style="TFrame")
@@ -86,6 +106,7 @@ result_label = ttk.Label(frame, text="Select a DEF file...")
 result_label.grid(row=0, column=0, columnspan=2, pady=10)
 
 ttk.Button(frame, text="Get Wiring", command=draw).grid(row=1, column=0, padx=10, pady=20)
-ttk.Button(frame, text="Quit", command=root.quit).grid(row=1, column=1, padx=10, pady=20)
+ttk.Button(frame, text="Quit", command=root.quit).grid(row=2, column=0, padx=10, pady=20)
+ttk.Button(frame, text="Update", command= restart_program).grid(row=1, column=1, padx=10, pady=20)
 
 root.mainloop()

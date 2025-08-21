@@ -118,7 +118,7 @@ sensors2 = {
         "type": "digital",
         "connection": 
         {
-            "Default": [("Black", "VX", "EX", "U"),
+            "default": [("Black", "VX", "EX", "U"),
                         ("Red", "U", "H", "L"),
                         ("Purple", "GND"),
                         ("Clear", "GND")
@@ -342,22 +342,55 @@ sensors2 = {
         },
 
 
-    "03002": {
-        "name": "Wind Sentry Set",
-        "measurement": "wind",
-        "model": "03002-L",
-        "type": "analog",
-        "connection": {
-            "Default": [
-                ("Red", "U", "P", "PLL"),
-                ("Black", "GND"),
-                ("Green", "U", "H", "L"),
-                ("Blue", "U", "EX", "VX"),
-                ("White", "GND"),
-                ("Clear", "GND"),
-            ],
-        }
+    }
+sensors = {
+    "05103": {
+        
+            "Red": ("U", "P", "PLL"), 
+            "Black": ("GND",), 
+            "Green": ("U", "H", "L"),
+            "Blue": ("U", "EX", "VX"), 
+            "White": ("GND",), 
+            "Clear": ("GND",)
+        
     },
+    "TempVue20": {
+            "White": ("C", "H", "L", "U"),
+            "Brown": ("12V",),
+            "Black": ("G",),
+            "Clear": ("G",),
+            "Gray": ("G",)
+        
+    },
+    "CS100": {
+            "Blue": ("U", "H", "L"),
+            "Yellow": ("GND",),
+            "Black": ("G",),
+            "Green": ("U", "C"),
+            "Red": ("12V",),
+            "Shield": ("GND",)
+        
+    },
+    "TE525": {
+            "Black": ("P", "U"),
+            "White": ("GND",),
+            "Clear": ("GND",)
+    
+    },
+    "CS616": {
+            "Red": ("12V",),
+            "Green": ("H", "L", "U"),
+            "Orange": ("C",),
+            "Black": ("GND",),
+            "Clear": ("G",)
+        
+    },
+    "CS616": {
+            "Red": ("12V",),
+            "Green": ("H", "L", "U"),
+            "Orange": ("C",),
+            "Black": ("GND",),
+            "Clear": ("G",)
+        
+    }
 }
-
-

@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from dictionary import dataloggers, sensors2
+
 # Dataloggers and sensors definitions (paste your full data here)
 PRIMARY_COLOR = "#EABE0D"
 DARK_COLOR = "#4D4D4D"
@@ -61,28 +62,15 @@ def open_selection_interface():
         selection_list[sensor]= connections_format
         #selection_list.append(selection)
         sensor_counter+=1   
-        display_box.insert(tk.END, f"{sensor} ({protocol}) on {datalogger}\n")
+        display_box.insert(tk.END, f"{sensor} ({protocol})\n")
 
     def save_selections():
-        #fromato de sensores y datalogger
-
         top.destroy()
  
     # Add and Save buttons
     ttk.Button(top, text="Add Selection", command=add_selection).pack(pady=5)
     ttk.Button(top, text="Save", command=save_selections).pack(pady=(5, 15))
-    #print("ddd")
+  
     top.grab_set()
     top.wait_window() 
     return [datalogger_var.get(), selection_list]
-
-
-# # Main window (for testing)
-# if __name__ == "__main__":
-#     root = tk.Tk()
-#     root.title("Main Window")
-#     root.geometry("300x200")
-#     selection = open_selection_interface()
-#     #ttk.Button(root, text="Open Selection Interface", command=open_selection_interface).pack(pady=50)
-#     print(selection)
-#     root.mainloop()

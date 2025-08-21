@@ -3,7 +3,7 @@ from tkinter import Canvas
 from PIL import Image, ImageTk
 from ports_coordenates import logger_ports
 
-datalogger_image = "img/cr1000x.png"
+datalogger_image = "img/cr300/cr310.png"
 root = tk.Tk()
 root.title("Sensor Wiring Diagram")
 
