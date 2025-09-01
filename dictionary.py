@@ -51,296 +51,296 @@ dataloggers = {
     }
   
 sensors2 = {
-        "05103": {
-        "name": "WS_WD",
-        "measurement" : "wind",
-        "model": "05103",
-        "type": "analog",
-        "connection":
-        {
-        "SDI-12": [("Red", "U", "P", "PLL"), 
-                    ("Black", "GND"), 
-                    ("Green", "U", "H", "L"),
-                    ("Blue", "U", "EX", "VX"), 
-                    ("White", "GND"), 
-                    ("Clear", "GND")]
-            }
-        },
-        "TempVue20": {
-        "name": "Pt100 Digital Air Temperature Sensor",
-        "measurement" : "temperature",
-        "model": "TempVue20",
-        "type": "digital",
-        "connection": 
-        {
-            "SDI-12": [("White", "C", "H", "L", "U"), 
-                    ("Brown", "12V"),  
-                    ("Black", "G"),
-                    ("Clear", "G"), 
-                    ("Gray", "G")],
-            "RS-485": [("Yellow", "C"), 
-                    ("Blue", "C"),  
-                    ("Brown", "12V"),
-                    ("Black", "G"), 
-                    ("Gray", "G"), 
-                    ("Clear", "GND")]
-        
-            }
-        },
-        "TempVue10": {
-        "name": "Pt100 Analog Temperature Sensor",
-        "measurement" : "temperature",
-        "model": "TempVue10",
-        "type": "digital",
-        "connection": 
-        {
-            "4-wire": [("Yellow", "H", "U"),
-                       ("Blue", "L", "U"),
-                       ("Orange", "H", "U"),
-                       ("Purple", "H", "L"),
-                       ("Brown", "VX", "EX", "U"),
-                       ("Black", "GND"),
-                       ("Clear", "GND")
 
-                    ],
-            "2-wire": [("Orange", "SE", "U"), 
+    "05103": {
+    "name": "WS_WD",
+    "measurement" : "wind",
+    "model": "05103",
+    "type": "analog",
+    "connection":
+    {
+    "SDI-12": [("Red", "U", "P", "PLL"), 
+                ("Black", "GND"), 
+                ("Green", "U", "H", "L"),
+                ("Blue", "U", "EX", "VX"), 
+                ("White", "GND"), 
+                ("Clear", "GND")]
+        }
+    },
+    "TempVue20": {
+    "name": "Pt100 Digital Air Temperature Sensor",
+    "measurement" : "temperature",
+    "model": "TempVue20",
+    "type": "digital",
+    "connection": 
+    {
+        "SDI-12": [("White", "C", "H", "L", "U"), 
+                ("Brown", "12V"),  
+                ("Black", "G"),
+                ("Clear", "G"), 
+                ("Gray", "G")],
+        "RS-485": [("Yellow", "C"), 
+                ("Blue", "C"),  
+                ("Brown", "12V"),
+                ("Black", "G"), 
+                ("Gray", "G"), 
+                ("Clear", "GND")]
+    
+        }
+    },
+    "TempVue10": {
+    "name": "Pt100 Analog Temperature Sensor",
+    "measurement" : "temperature",
+    "model": "TempVue10",
+    "type": "digital",
+    "connection": 
+    {
+        "4-wire": [("Yellow", "H", "U"),
+                    ("Blue", "L", "U"),
+                    ("Orange", "H", "U"),
+                    ("Purple", "H", "L"),
                     ("Brown", "VX", "EX", "U"),
                     ("Black", "GND"),
-                    ("Clear", "GND")  
-                    ]
-        
-            }
-        },
-        "109/108/107": {
-        "name": "10X Temperature Probe",
-        "measurement" : "temperature",
-        "model": "109",
-        "type": "digital",
-        "connection": 
-        {
-            "Default": [("Black", "VX", "EX", "U"),
-                        ("Red", "U", "H", "L"),
-                        ("Purple", "GND"),
-                        ("Clear", "GND")
-                       
+                    ("Clear", "GND")
 
-                    ]
+                ],
+        "2-wire": [("Orange", "SE", "U"), 
+                ("Brown", "VX", "EX", "U"),
+                ("Black", "GND"),
+                ("Clear", "GND")  
+                ]
+    
+        }
+    },
+    "109/108/107": {
+    "name": "10X Temperature Probe",
+    "measurement" : "temperature",
+    "model": "109",
+    "type": "digital",
+    "connection": 
+    {
+        "Default": [("Black", "VX", "EX", "U"),
+                    ("Red", "U", "H", "L"),
+                    ("Purple", "GND"),
+                    ("Clear", "GND")
+                    
+
+                ]
+    
+        }
+    },
+    "HygroVue10": {
+    "name": "Digital Temperature an Relative Humidity Sensor",
+    "measurement" : "temperature, humidity",
+    "model": "HygroVue10",
+    "type": "digital",
+    "connection": 
+    {
+        "SDI-12": [("Brown", "12V"),
+                    ("White", "U", "C"),
+                    ("Black", "G"),
+                    ("Clear", "G")
+                ]
+    
+        }
+    },
+    "HygroVue5": {
+    "name": "Digital Temperature an Relative Humidity Sensor",
+    "measurement" : "temperature, humidity",
+    "model": "HygroVue5",
+    "type": "digital",
+    "connection": 
+    {
+        "SDI-12": [("Brown", "12V"),
+                    ("White", "U", "C"),
+                    ("Black", "G"),
+                    ("Clear", "G")
+                ]
+    
+        }
+    },
+    "EE181-L": {
+    "name": "Air Temperature an Relative Humidity Sensor",
+    "measurement" : "temperature, humidity",
+    "model": "EE181-L",
+    "type": "analog",
+    "connection": 
+    {
+        "SE-Measurment": [("Yellow", "U", "SE"),
+                    ("Blue", "U", "SE"),
+                    ("Black", "GND"),
+                    ("Clear", "GND"),
+                    ("Red", "12V", "SW")
+                ]
+    
+        }
+    },
+    "ClimaVue50 G2": {
+    "name": "Compact Digital Weather Sensor",
+    "measurement" : "all",
+    "model": "ClimaVue50 G2",
+    "type": "digital",
+    "connection": 
+    {
+        "Modbus": [("White", "U", "C"),
+                    ("Clear", "G"),
+                    ("Brown", "12V"),
+                    ("Black", "G")
+                ]
+    
+        }
+    },
+    "ClimaVue40": {
+    "name": "Compact Digital Weather Sensor",
+    "measurement" : "all",
+    "model": "ClimaVue40",
+    "type": "digital",
+    "connection": 
+    {
+        "RS-485": [("Red", "12V"),
+                    ("Black", "G"),
+                    ("Green", "C_o"),
+                    ("White", "C_e"),
+                    ("Clear", "G")
+                ]
+    
+        }
+    },
+    "MetSENS": {
+    "name": "Compact Weather Sensor",
+    "measurement" : "all",
+    "model": "MetSENS",
+    "type": "digital",
+    "connection": 
+    {
+        "RS-485": [("Red", "12V"),
+                    ("Black", "G"),
+                    ("Green", "C_o"),
+                    ("White", "C_e"),
+                    ("Clear", "G")
+                ],
+        "SDI-12": [("Green", "C", "U"),
+                    ("Red", "12V"),
+                    ("Black", "G"),
+                    ("Clear", "G")
+                ],
+        "RS-232": [("Green", "C_o"),
+                    ("White", "C_e"),
+                    ("Red", "12V"),
+                    ("Black", "G"),
+                    ("Clear", "G")
+                ],
+    
+        }
+    },
+    "CS100": {
+    "name": "Barometric Pressure Sensor",
+    "measurement" : "baro_pressure",
+    "model": "CS100",
+    "type": "analog",
+    "connection": 
+    {
+        "SE-Measurement": [
+            ("Blue", "U", "H", "L"), 
+            ("Yellow", "GND"),  
+            ("Black", "G"),
+            ("Green", "U", "C"), 
+            ("Red", "12V"), 
+            ("Shield", "GND")],
+        "Diff-Measurement": [
+            ("Blue", "U", "H"), 
+            ("Yellow", "U", "L"),  
+            ("Black", "G"),
+            ("Green", "U", "C"), 
+            ("Red", "12V"), 
+            ("Shield", "GND")]
+    
+        }
+    },
+    "BaroVue10": {
+    "name": "Barometric Pressure Sensor",
+    "measurement" : "baro_pressure",
+    "model": "CS100",
+    "type": "digital",
+    "connection": 
+    {
+        "SDI-12": [
+            ("White", "C", "SDI12", "U"), 
+            ("Red", "12V", "Bat+"),  
+            ("Black", "G"),
+            ("Blue", "Not"), 
+            ("Yellow", "Not")],
+        "RS-232": [
+            ("Yellow", "C_o"), 
+            ("Blue", "C_e"),  
+            ("Black", "G"),
+            ("Red", "12V", "Bat+"), 
+            ("White", "Not")]
+    
+        }
+    },
+    
+    "RainVue-Series": {
+    "name": "Rain-Vue Series: SDI-12 Precipitation Sensors",
+    "measurement" : "rain",
+    "model": "RainVue",
+    "type": "digital",
+    "connection": 
+    {
+        "SDI-12": [
+            ("White", "C", "U"), 
+            ("Clear", "G"),  
+            ("Brown", "12V"),
+            ("Black", "G")]
         
-            }
-        },
-        "HygroVue10": {
-        "name": "Digital Temperature an Relative Humidity Sensor",
-        "measurement" : "temperature, humidity",
-        "model": "HygroVue10",
-        "type": "digital",
-        "connection": 
-        {
-            "SDI-12": [("Brown", "12V"),
-                        ("White", "U", "C"),
-                        ("Black", "G"),
-                        ("Clear", "G")
-                    ]
-        
-            }
-        },
-        "HygroVue5": {
-        "name": "Digital Temperature an Relative Humidity Sensor",
-        "measurement" : "temperature, humidity",
-        "model": "HygroVue5",
-        "type": "digital",
-        "connection": 
-        {
-            "SDI-12": [("Brown", "12V"),
-                        ("White", "U", "C"),
-                        ("Black", "G"),
-                        ("Clear", "G")
-                    ]
-        
-            }
-        },
-        "EE181-L": {
-        "name": "Air Temperature an Relative Humidity Sensor",
-        "measurement" : "temperature, humidity",
-        "model": "EE181-L",
-        "type": "analog",
-        "connection": 
-        {
-            "SE-Measurment": [("Yellow", "U", "SE"),
-                        ("Blue", "U", "SE"),
-                        ("Black", "GND"),
-                        ("Clear", "GND"),
-                        ("Red", "12V", "SW")
-                    ]
-        
-            }
-        },
-        "ClimaVue50 G2": {
-        "name": "Compact Digital Weather Sensor",
-        "measurement" : "all",
-        "model": "ClimaVue50 G2",
-        "type": "digital",
-        "connection": 
-        {
-            "Modbus": [("White", "U", "C"),
-                        ("Clear", "G"),
-                        ("Brown", "12V"),
-                        ("Black", "G")
-                    ]
-        
-            }
-        },
-        "ClimaVue40": {
-        "name": "Compact Digital Weather Sensor",
-        "measurement" : "all",
-        "model": "ClimaVue40",
-        "type": "digital",
-        "connection": 
-        {
-            "RS-485": [("Red", "12V"),
-                        ("Black", "G"),
-                        ("Green", "C_o"),
-                        ("White", "C_e"),
-                        ("Clear", "G")
-                    ]
-        
-            }
-        },
-        "MetSENS": {
-        "name": "Compact Weather Sensor",
-        "measurement" : "all",
-        "model": "MetSENS",
-        "type": "digital",
-        "connection": 
-        {
-            "RS-485": [("Red", "12V"),
-                        ("Black", "G"),
-                        ("Green", "C_o"),
-                        ("White", "C_e"),
-                        ("Clear", "G")
-                    ],
-            "SDI-12": [("Green", "C", "U"),
-                        ("Red", "12V"),
-                        ("Black", "G"),
-                        ("Clear", "G")
-                    ],
-            "RS-232": [("Green", "C_o"),
-                        ("White", "C_e"),
-                        ("Red", "12V"),
-                        ("Black", "G"),
-                        ("Clear", "G")
-                    ],
-        
-            }
-        },
-        "CS100": {
-        "name": "Barometric Pressure Sensor",
-        "measurement" : "baro_pressure",
-        "model": "CS100",
-        "type": "analog",
-        "connection": 
-        {
-            "SE-Measurement": [
-                ("Blue", "U", "H", "L"), 
-                ("Yellow", "GND"),  
-                ("Black", "G"),
-                ("Green", "U", "C"), 
+    }
+    },
+
+    "TE525": {
+    "name": "Tipping Bucket Rain Gage",
+    "measurement" : "rain",
+    "model": "TE525",
+    "type": "digital",
+    "connection": 
+    {
+        "Pulse": [
+                ("Black", "P", "U"), 
+                ("White", "GND"),  
+                ("Clear", "GND")]
+    }
+    },
+    "CS700": {
+    "name": "Tipping Bucket Rain Gage",
+    "measurement" : "rain",
+    "model": "CS700",
+    "type": "digital",
+    "connection": 
+    {
+        "Pulse": [
+                ("Black", "P","P_SW", "U"), 
+                ("White", "GND"),  
+                ("Clear", "GND")],
+        "Control": [
+                ("Black", "C", "U"), 
+                ("White", "5V"),  
+                ("Clear", "GND")]
+    }
+    },
+
+    "CS616": {
+    "name": "30 cm Water Content Reflectometer",
+    "measurement" : "soil",
+    "model": "CS616",
+    "connection": 
+    {
+        "Default": [
                 ("Red", "12V"), 
-                ("Shield", "GND")],
-            "Diff-Measurement": [
-                ("Blue", "U", "H"), 
-                ("Yellow", "U", "L"),  
-                ("Black", "G"),
-                ("Green", "U", "C"), 
-                ("Red", "12V"), 
-                ("Shield", "GND")]
-        
-            }
-        },
-        "BaroVue10": {
-        "name": "Barometric Pressure Sensor",
-        "measurement" : "baro_pressure",
-        "model": "CS100",
-        "type": "digital",
-        "connection": 
-        {
-            "SDI-12": [
-                ("White", "C", "SDI12", "U"), 
-                ("Red", "12V", "Bat+"),  
-                ("Black", "G"),
-                ("Blue", "Not"), 
-                ("Yellow", "Not")],
-            "RS-232": [
-                ("Yellow", "C_o"), 
-                ("Blue", "C_e"),  
-                ("Black", "G"),
-                ("Red", "12V", "Bat+"), 
-                ("White", "Not")]
-        
-            }
-        },
-        
-        "RainVue-Series": {
-        "name": "Rain-Vue Series: SDI-12 Precipitation Sensors",
-        "measurement" : "rain",
-        "model": "RainVue",
-        "type": "digital",
-        "connection": 
-        {
-            "SDI-12": [
-                ("White", "C", "U"), 
-                ("Clear", "G"),  
-                ("Brown", "12V"),
-                ("Black", "G")]
-           
-        },
-
-        "TE525": {
-        "name": "Tipping Bucket Rain Gage",
-        "measurement" : "rain",
-        "model": "TE525",
-        "type": "digital",
-        "connection": 
-        {
-            "Pulse": [
-                    ("Black", "P", "U"), 
-                    ("White", "GND"),  
-                    ("Clear", "GND")]
-        }
-        },
-        "CS700": {
-        "name": "Tipping Bucket Rain Gage",
-        "measurement" : "rain",
-        "model": "CS700",
-        "type": "digital",
-        "connection": 
-        {
-            "Pulse": [
-                    ("Black", "P","P_SW", "U"), 
-                    ("White", "GND"),  
-                    ("Clear", "GND")],
-            "Control": [
-                    ("Black", "C", "U"), 
-                    ("White", "5V"),  
-                    ("Clear", "GND")]
-        }
-        }
-        },
-
-        "CS616": {
-        "name": "30 cm Water Content Reflectometer",
-        "measurement" : "soil",
-        "model": "CS616",
-        "connection": 
-        {
-            "Default": [
-                    ("Red", "12V"), 
-                    ("Green", "H", "L", "U"),  
-                    ("Orange", "C"),  
-                    ("Black", "GND"),  
-                    ("Clear", "G")]
-        }
-        },
-
+                ("Green", "H", "L", "U"),  
+                ("Orange", "C"),  
+                ("Black", "GND"),  
+                ("Clear", "G")]
+    }
+    },
 
     "03002": {
         "name": "Wind Sentry Set",
@@ -355,6 +355,79 @@ sensors2 = {
                 ("Blue", "U", "EX", "VX"),
                 ("White", "GND"),
                 ("Clear", "GND"),
+            ],
+        }
+    },
+    "Modbus": {
+        "name": "Modbus",
+        "measurement": "control",
+        "model": "Modbus",
+        "type": "digital",
+        "connection": {
+            "COMC1": [
+                ("A", "TX"),
+                ("B", "RX"),
+            ],
+        }
+    },
+    "CH201": {
+        "name": "CH201 12V Charging Regulator",
+        "measurement": "battery",
+        "model": "CH201",
+        "type": "",
+        "connection": {
+            "RS-232": [
+                ("Black", "GND-"),
+                ("Red", "12V+"),
+                ("TX", "-"),
+                ("RX", "-"),
+                ("COM G", "-"),
+                ("DC In1", "-"),
+                ("DC In2", "-"),
+                ("g", "-"),
+                ("g", "-"),
+                ("12V", "-"),
+            ],
+        }
+    },
+    "SP10": {
+        "name": "Solar Panel SP10",
+        "measurement": "battery",
+        "model": "SP10",
+        "type": "power",
+        "connection": {
+            "Default": [
+                ("Red", "+"),
+                ("Black", "-"),
+            ],
+        }
+    },
+    "BP7": {
+        "name": "7 Ah 12 V Sealed Rechargeable Battery",
+        "measurement": "battery",
+        "model": "BP7",
+        "type": "power",
+        "connection": {
+            "Default": [
+                ("Red", "+"),
+                ("Black", "-"),
+            ],
+        }
+    },  
+    "CH150": {
+        "name": "Charging regulator CH150",
+        "measurement": "battery",
+        "model": "CH150",
+        "type": "power",
+        "connection": {
+            "Default": [
+                ("Red", "12+"),
+                ("Black", "GND-"),
+                ("G", "-Port 1-"),
+                ("CHG", "-Port 1-"),
+                ("CHG", "-Port 1-"),
+                ("G", "-Port 1-"),
+                ("Solar", "-Port 1-"),
             ],
         }
     },

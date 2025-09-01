@@ -6,13 +6,14 @@ PRIMARY_COLOR = "#EABE0D"
 DARK_COLOR = "#4D4D4D"
 WHITE = "#FFFFFF"
 FONT = ("Segoe UI", 10)
+CABLE_TYPES = ["12V", "GND", "H", "L", "VX", "P", "C", "5V", "RG", "MicroSD", "12V+", "GND-", "Ground", "Ethernet", "RS232", "CSIO", "USB"]
 
 def open_edit_interface(data):
     result = {}  # Will hold the updated data
 
     editor = tk.Toplevel()
     editor.title("Edit Wiring")
-    editor.geometry("450x350")
+    editor.geometry("450x750")
     editor.configure(bg=WHITE)
 
     # Estilo visual
@@ -48,7 +49,7 @@ def open_edit_interface(data):
 
         port_color_map = data[sensor]
         for i, (port, color) in enumerate(port_color_map.items()):
-            port_entry = tk.Entry(frame, width=20, font=FONT)
+            port_entry = ttk.Combobox(frame, values=CABLE_TYPES)
             port_entry.insert(0, port)
             port_entry.grid(row=i, column=0, padx=5, pady=2)
 

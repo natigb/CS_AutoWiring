@@ -3,6 +3,7 @@ from tkinter import Canvas
 from PIL import Image, ImageTk
 from ports_coordenates import logger_ports
 import pyautogui
+import ast
 import time
 from tkinter import filedialog
 
@@ -18,8 +19,8 @@ def draw_wiring_diagram_gui(wiring, datalogger_image):
     root = tk.Toplevel()
     root.title("Sensor Wiring Diagram")
 
-    canvas_width = 1920
-    canvas_height = 1080
+    canvas_width = 1720
+    canvas_height = 880
     canvas = Canvas(root, width=canvas_width, height=canvas_height, bg="#ffffff")
     canvas.pack()
 
@@ -96,6 +97,9 @@ def draw_wiring_diagram_gui(wiring, datalogger_image):
             if port in logger_ports[datalogger_image]:
                 logger_x = logger_ports[datalogger_image][port][0] + (center_x - (logger_width / 2))
                 logger_y = logger_ports[datalogger_image][port][1] + (center_y - (logger_height / 2))
+            elif port[0]=="(":
+                #print(port)
+                logger_x, logger_y = ast.literal_eval(port)
             else:
                 logger_x, logger_y = sx, exit_y
 
