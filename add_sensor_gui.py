@@ -4,6 +4,9 @@ from tkinter import ttk, messagebox
 DICT_FILE = "dictionary.py"
 COLORS = ["Red", "Blue", "Green", "Black", "Gray", "Yellow", "Brown", "Orange", "White", "Purple", "Other"]
 CABLE_TYPES = ["12V", "GND", "H", "L", "VX", "P", "C", "5V", "RG", "MicroSD", "12V+", "GND-", "Ground", "Ethernet", "RS232", "CSIO", "USB"]
+MEASUREMENT_TYPE = ["analog", "digital", "power", "other"]
+MEASUREMENT = ["rain", "baro_pressure", "all", "temperature", "humidity", "wind"]
+
 PRIMARY_COLOR = "#EABE0D"
 DARK_COLOR = "#4D4D4D"
 WHITE = "#FFFFFF"
@@ -49,15 +52,15 @@ def open_add_sensor_interface():
     name_entry.pack(fill="x", padx=10, pady=5)
 
     ttk.Label(scroll_frame, text="Measurement").pack(fill="x")
-    meas_entry = tk.Entry(scroll_frame)
-    meas_entry.pack(fill="x", padx=10, pady=5)
+    meas_combo = ttk.Combobox(scroll_frame, values=MEASUREMENT)
+    meas_combo.pack(fill="x", padx=10, pady=5)
 
     ttk.Label(scroll_frame, text="Model").pack(fill="x")
     model_entry = tk.Entry(scroll_frame)
     model_entry.pack(fill="x", padx=10, pady=5)
 
     ttk.Label(scroll_frame, text="Type").pack(fill="x")
-    type_combo = ttk.Combobox(scroll_frame, values=["digital", "analog"])
+    type_combo = ttk.Combobox(scroll_frame, values=MEASUREMENT_TYPE)
     type_combo.set("digital")  # default value
     type_combo.pack(fill="x", padx=10, pady=5)
 

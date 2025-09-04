@@ -166,8 +166,8 @@ sensors2 = {
     "type": "analog",
     "connection": 
     {
-        "SE-Measurment": [("Yellow", "U", "SE"),
-                    ("Blue", "U", "SE"),
+        "SE-Measurment": [("Yellow", "U", "H", "L"),
+                    ("Blue", "U", "H", "L"),
                     ("Black", "GND"),
                     ("Clear", "GND"),
                     ("Red", "12V", "SW")
@@ -374,7 +374,7 @@ sensors2 = {
         "name": "CH201 12V Charging Regulator",
         "measurement": "battery",
         "model": "CH201",
-        "type": "",
+        "type": "power",
         "connection": {
             "RS-232": [
                 ("Black", "GND-"),
