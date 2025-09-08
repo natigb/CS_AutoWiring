@@ -431,6 +431,20 @@ sensors2 = {
             ],
         }
     },
+    "Generic Regulator": {
+        "name": "Generic Regulator",
+        "measurement": "battery",
+        "model": "Generic Regulator",
+        "type": "power",
+        "connection": {
+            "Default": [
+                ("Red", "12V+"),
+                ("Black", "GND-"),
+                ("Battery", "Battery"),
+                ("Solar Panel", "Solar Panel"),
+            ],
+        }
+    },
 }
 
 
