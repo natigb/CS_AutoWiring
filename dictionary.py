@@ -131,7 +131,7 @@ sensors2 = {
     },
     "HygroVue10": {
     "name": "Digital Temperature an Relative Humidity Sensor",
-    "measurement" : "temperature, humidity",
+    "measurement" : "temperature",
     "model": "HygroVue10",
     "type": "digital",
     "connection": 
@@ -146,7 +146,7 @@ sensors2 = {
     },
     "HygroVue5": {
     "name": "Digital Temperature an Relative Humidity Sensor",
-    "measurement" : "temperature, humidity",
+    "measurement" : "temperature",
     "model": "HygroVue5",
     "type": "digital",
     "connection": 
@@ -161,7 +161,7 @@ sensors2 = {
     },
     "EE181-L": {
     "name": "Air Temperature an Relative Humidity Sensor",
-    "measurement" : "temperature, humidity",
+    "measurement" : "temperature",
     "model": "EE181-L",
     "type": "analog",
     "connection": 
@@ -177,7 +177,7 @@ sensors2 = {
     },
     "ClimaVue50 G2": {
     "name": "Compact Digital Weather Sensor",
-    "measurement" : "all",
+    "measurement" : "basic weather",
     "model": "ClimaVue50 G2",
     "type": "digital",
     "connection": 
@@ -192,7 +192,7 @@ sensors2 = {
     },
     "ClimaVue40": {
     "name": "Compact Digital Weather Sensor",
-    "measurement" : "all",
+    "measurement" : "basic weather",
     "model": "ClimaVue40",
     "type": "digital",
     "connection": 
@@ -208,7 +208,7 @@ sensors2 = {
     },
     "MetSENS": {
     "name": "Compact Weather Sensor",
-    "measurement" : "all",
+    "measurement" : "basic weather",
     "model": "MetSENS",
     "type": "digital",
     "connection": 
@@ -235,7 +235,7 @@ sensors2 = {
     },
     "CS100": {
     "name": "Barometric Pressure Sensor",
-    "measurement" : "baro_pressure",
+    "measurement" : "barometric pressure",
     "model": "CS100",
     "type": "analog",
     "connection": 
@@ -259,7 +259,7 @@ sensors2 = {
     },
     "BaroVue10": {
     "name": "Barometric Pressure Sensor",
-    "measurement" : "baro_pressure",
+    "measurement" : "barometric pressure",
     "model": "CS100",
     "type": "digital",
     "connection": 

@@ -5,7 +5,7 @@ DICT_FILE = "dictionary.py"
 COLORS = ["Red", "Blue", "Green", "Black", "Gray", "Yellow", "Brown", "Orange", "White", "Purple", "Other"]
 CABLE_TYPES = ["12V", "GND", "H", "L", "VX", "P", "C", "5V", "RG", "MicroSD", "12V+", "GND-", "Ground", "Ethernet", "RS232", "CSIO", "USB"]
 MEASUREMENT_TYPE = ["analog", "digital", "power", "other"]
-MEASUREMENT = ["rain", "baro_pressure", "all", "temperature", "humidity", "wind"]
+MEASUREMENT = ["rain", "barometric pressure", "all", "temperature", "humidity", "wind"]
 
 PRIMARY_COLOR = "#EABE0D"
 DARK_COLOR = "#4D4D4D"

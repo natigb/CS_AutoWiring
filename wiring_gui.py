@@ -10,7 +10,6 @@ DARK_COLOR = "#4D4D4D"
 WHITE = "#FFFFFF"
 FONT = ("Segoe UI", 12, "bold")
 
-
 class WiringFrame(ttk.Frame):
     def __init__(self, parent, controller, wiring, datalogger_image):
         super().__init__(parent, style="Right.TFrame")
@@ -20,9 +19,10 @@ class WiringFrame(ttk.Frame):
         canvas_width = 1700
         canvas_height = 900
 
-        # --- Scrollable canvas setup ---
+        # --- Scrollable canvas setup (hidden scrollbars) ---
         self.canvas = Canvas(self, bg=WHITE, highlightthickness=0,
-                             width=canvas_width-100, height=500)
+                             width=canvas_width-100, height=500,
+                             scrollregion=(0, 0, canvas_width, canvas_height))
         self.canvas.pack(side="left", fill="both", expand=True)
 
         # Inner frame
@@ -34,17 +34,14 @@ class WiringFrame(ttk.Frame):
 
         # --- Mouse wheel scrolling ---
         def _on_mousewheel(event):
-            if event.num == 4:  # Linux scroll up
-                self.canvas.yview_scroll(-1, "units")
-            elif event.num == 5:  # Linux scroll down
-                self.canvas.yview_scroll(1, "units")
-            else:  # Windows / Mac
+            if event.state & 0x0001:  # Shift key pressed -> horizontal scroll
+                self.canvas.xview_scroll(int(-1*(event.delta/120)), "units")
+            else:  # Vertical scroll
                 self.canvas.yview_scroll(int(-1*(event.delta/120)), "units")
 
-        # Bind scrolling to all widgets inside canvas
         self.canvas.bind_all("<MouseWheel>", _on_mousewheel)  # Windows / Mac
-        self.canvas.bind_all("<Button-4>", _on_mousewheel)    # Linux scroll up
-        self.canvas.bind_all("<Button-5>", _on_mousewheel)    # Linux scroll down
+        self.canvas.bind_all("<Button-4>", lambda e: self.canvas.yview_scroll(-1, "units"))  # Linux up
+        self.canvas.bind_all("<Button-5>", lambda e: self.canvas.yview_scroll(1, "units"))   # Linux down
 
         # --- Drawing canvas inside inner frame ---
         self.drawing = Canvas(self.inner, width=canvas_width, height=canvas_height,
