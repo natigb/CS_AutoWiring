@@ -131,14 +131,17 @@ class WiringFrame(ttk.Frame):
             color = color.lower() if color.lower() in [
                 "red", "blue", "green", "black", "gray", "yellow",
                 "brown", "orange", "white", "purple"
-            ] else "NavajoWhite2"
+            ] else "snow4"
             color = "thistle3" if color == "white" else color
-
+            
             if port in logger_ports[self.datalogger_image]:
                 logger_x = logger_ports[self.datalogger_image][port][0] + (self.center_x - (self.logger_width / 2))
                 logger_y = logger_ports[self.datalogger_image][port][1] + (self.center_y - (self.logger_height / 2))
             elif port[0] == "(":
-                logger_x, logger_y = ast.literal_eval(port)
+                try:
+                    logger_x, logger_y = ast.literal_eval(port)
+                except:
+                    logger_x, logger_y = sx, exit_y
             else:
                 logger_x, logger_y = sx, exit_y
 
@@ -152,6 +155,7 @@ class WiringFrame(ttk.Frame):
                                            fill=color, outline="")
             text1 = self.drawing.create_text((sx + mid_x) / 2, exit_y - 6,
                                              text=color_tag, font=("Arial", 7), fill="black")
+            
             text2 = self.drawing.create_text(((sx + mid_x) / 2) + (60 if side == "left" else -60),
                                              exit_y - 6, text=port, font=("Arial", 7), fill=color)
 

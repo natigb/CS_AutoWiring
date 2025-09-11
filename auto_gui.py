@@ -125,8 +125,8 @@ def open_selection_interface():
             selection_listbox.delete(index)
 
     # --- Buttons ---
-    ttk.Button(left_frame, text="Add Selection", command=add_selection).pack(anchor="w", pady=5, fill="x")
-    ttk.Button(left_frame, text="Delete Selected", command=delete_selection).pack(anchor="w", pady=5, fill="x")
+    ttk.Button(left_frame, text="Add Selection +", command=add_selection).pack(anchor="w", pady=5, fill="x")
+    ttk.Button(left_frame, text="Delete Selected -", command=delete_selection).pack(anchor="w", pady=5, fill="x")
     ttk.Button(left_frame, text="Save & Close", command=top.destroy).pack(anchor="w", pady=10, fill="x")
 
     top.grab_set()

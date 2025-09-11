@@ -445,6 +445,30 @@ sensors2 = {
             ],
         }
     },
+    "CS106": {
+        "name": "Barometric Pressure Sensor",
+        "measurement": "barometric pressure",
+        "model": "CS106",
+        "type": "analog",
+        "connection": {
+            "SE-Measurement": [
+                ("Blue", "U", "H", "L"),
+                ("Yellow", "GND"),
+                ("Black", "G"),
+                ("Green", "U", "C"),
+                ("Red", "12V"),
+                ("Shield", "GND"),
+            ],
+            "Diff-Measurement": [
+                ("Blue", "U", "H"),
+                ("Yellow", "U", "L"),
+                ("Black", "G"),
+                ("Green", "U"),
+                ("Red", "12V"),
+                ("Shield", "GND"),
+            ],
+        }
+    },
 }
 
 

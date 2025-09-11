@@ -110,7 +110,7 @@ def get_auto_wiring(datalogger_ports, sensors):
                     available_ports.pop(port_index)
                     break
                 else:
-                    dl_port = color
+                    dl_port = port + " (unavailable)"
             object[sensor_name].update({dl_port : color})   
         wiring.update(object)
     

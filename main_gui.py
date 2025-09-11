@@ -139,8 +139,7 @@ class MainApp(tk.Tk):
             style="Custom.TCheckbutton"
         ).pack(fill="x", pady=5)
 
-        #ttk.Button(self.left_panel, text="Quit", command=self.quit).pack(fill="x", side="bottom", pady=5)
-
+        
         # Right panel (dynamic content, grid layout)
         self.right_panel = ttk.Frame(main_frame, padding=20, style="Right.TFrame")
         self.right_panel.pack(side="right", fill="both", expand=True)
@@ -162,7 +161,7 @@ class MainApp(tk.Tk):
             image = Image.open("img/regulator.png").resize((311, 360))
             self.regulator_img = ImageTk.PhotoImage(image)
             self.regulator = ttk.Label(self.right_panel, image=self.regulator_img, background=WHITE)
-            self.regulator.grid(row=0, column=1, sticky="e", pady=10)
+            self.regulator.grid(row=0, column=0, sticky="e", pady=10)
 
             # --- Make it draggable ---
             self.drag_data = {"x": 0, "y": 0}
@@ -202,10 +201,12 @@ class MainApp(tk.Tk):
     def clear_right_panel(self):
         for widget in self.right_panel.winfo_children():
             widget.destroy()
+        self.show_regulator.set(False)
+        self.show_title_var.set(False)
 
     def show_home(self):
         self.clear_right_panel()
-        self.result_label = ttk.Label(self.right_panel, text="Select a DEF file...")
+        self.result_label = ttk.Label(self.right_panel, text="Create new wiring or open from Short Cut")
         self.result_label.grid(row=0, column=0, pady=20, sticky="n")
 
     def choose_def_file(self):
@@ -216,7 +217,9 @@ class MainApp(tk.Tk):
         if filepath:
             filename = os.path.basename(filepath)
             wiring = get_wiring_from_SC(filepath)
-            #self.result_label.config(text=filename)
+        
+          #self.result_label.config(text=filename)
+        self.draw()
 
     def automatic_action(self):
         global wiring
@@ -231,7 +234,7 @@ class MainApp(tk.Tk):
             self.result_label.config(text="no wiring selected")
         else:
             self.clear_right_panel()
-            edit_frame = EditFrame(self.right_panel, self, wiring[0])
+            edit_frame = EditFrame(self.right_panel, self, wiring[0],wiring[1])
             edit_frame.grid(row=0, column=0, sticky="nsew")
 
     def add_sensor(self):

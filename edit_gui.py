@@ -11,7 +11,7 @@ CABLE_TYPES = [
 ]
 
 class EditFrame(ttk.Frame):
-    def __init__(self, parent, controller, data):
+    def __init__(self, parent, controller, data, logger):
         super().__init__(parent)
         self.controller = controller
         self.data = data
@@ -64,7 +64,7 @@ class EditFrame(ttk.Frame):
                     new_data[new_port] = color
             data[sensor] = new_data
             self.result.update(data)
-            controller.show_home()  # switch back to home frame
+            controller.draw()  # switch back to home frame
 
         sensor_menu.bind("<<ComboboxSelected>>", lambda e: load_sensor())
         load_sensor()
