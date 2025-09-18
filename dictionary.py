@@ -469,6 +469,67 @@ sensors2 = {
             ],
         }
     },
+    "SkyVUE8": {
+        "name": "SkyVue8 LIDAR Ceilometer",
+        "measurement": "clouds",
+        "model": "CS136",
+        "type": "digital",
+        "connection": {
+            "Default": [
+                ("Blue", "U", "C"),
+                ("White", "U", "C"),
+                ("Green", "GND"),
+            ],
+        }
+    },
+    "SkyVUEPro": {
+        "name": "10km Ceiling LIDAR Ceilometer",
+        "measurement": "clouds",
+        "model": "CS135",
+        "type": "digital",
+        "connection": {
+            "Default": [
+                ("Blue", "U", "C"),
+                ("White", "U", "C"),
+                ("Green", "GND"),
+            ],
+        }
+    },
+    "52202": {
+        "name": "Electrically Heated Rain and Snow Gage",
+        "measurement": "rain",
+        "model": "52202-L",
+        "type": "digital",
+        "connection": {
+            "Pulse": [
+                ("Black", "U", "P", "p_SW"),
+                ("White", "GND"),
+                ("Clear", "GND"),
+            ],
+            "Control": [
+                ("Black", "C"),
+                ("White", "5V"),
+                ("Clear", "GND"),
+            ],
+        }
+    },
+    "AM16/32B": {
+        "name": "16- or 32-Channel Relay Multiplexer",
+        "measurement": "other",
+        "model": "AM16/32B",
+        "type": "other",
+        "connection": {
+            "Default": [
+                ("COM ODD H", "H"),
+                ("COM ODD L", "L"),
+                ("12V", "12V"),
+                ("CLK", "C"),
+                ("RES", "C"),
+                ("G or GND", "G"),
+                ("COM Ground", "GND"),
+            ],
+        }
+    },
 }
 
 
