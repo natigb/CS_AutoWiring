@@ -1,54 +1,57 @@
 from PIL import Image, ImageDraw, ImageFont
 from ports_coordenates import logger_ports
 
-def draw_ports(image_path, output_path="output.png"):
-    # Load coordinates from logger_ports
-    coords = logger_ports[image_path]
-    
-    # Open image
-    img = Image.open(image_path).convert("RGBA")
-    overlay = Image.new("RGBA", img.size, (255, 255, 255, 0))  # transparent layer
-    draw = ImageDraw.Draw(overlay)
+def label_ports_rotated(image_key, output="labeled_rotated.png"):
+    """
+    Draws port labels rotated 90° counter-clockwise above each port dot.
+    Compatible with Pillow >=10.
+    """
+    if image_key not in logger_ports:
+        raise ValueError(f"{image_key} not found in logger_ports")
 
-    # Load font (small for less overlap)
+    ports = logger_ports[image_key]
+    img_size = ports["image"]
+    
+    img = Image.open(image_key).resize(img_size)
+    draw = ImageDraw.Draw(img)
+
+    # Load font
     try:
-        font = ImageFont.truetype("arial.ttf", 10)
+        font = ImageFont.truetype("arial.ttf", 18)
     except:
         font = ImageFont.load_default()
 
-    for port, position in coords.items():
-        if port == "image":  # skip image size metadata
+    for port, coords in ports.items():
+        if port == "image":
             continue
-        
-        x, y = position
-        r = 5  # radius of the dot
+        x, y = coords
 
-        # Draw dot centered on (x, y)
-        draw.ellipse(
-            [(x - r, y - r), (x + r, y + r)],
-            fill=(0, 128, 255, 180),  # semi-transparent blue
-            outline=(0, 0, 0, 200)
-        )
+        # Draw a small red dot
+        r = 2
+        draw.ellipse((x-r, y-r, x+r, y+r), fill="red")
 
-        # Draw label in front (to the right) of the dot
-        try:
-            text_w, text_h = font.getsize(port)
-        except AttributeError:
-            bbox = font.getbbox(port)
-            text_w, text_h = bbox[2] - bbox[0], bbox[3] - bbox[1]
+        # Get text size using textbbox
+        bbox = draw.textbbox((0, 0), port, font=font)
+        text_w = bbox[2] - bbox[0]
+        text_h = bbox[3] - bbox[1]
 
-        text_x = x + r + 2  # a small gap to the right of the dot
-        text_y = y - text_h // 2  # vertically center with the dot
+        # Create a separate image for the text
+        text_img = Image.new("RGBA", (text_w, text_h), (0,0,0,255))
+        text_draw = ImageDraw.Draw(text_img)
+        text_draw.text((0,0), port, font=font, fill="#EABE0D")
 
-        draw.text((text_x, text_y), port, font=font, fill=(255, 255, 255, 255))
+        # Rotate the text 90° counter-clockwise
+        rotated = text_img.rotate(90, expand=1)
 
-    # Merge overlay with base image
-    out = Image.alpha_composite(img, overlay)
-    out.save(output_path)
-    print(f"Saved annotated image as {output_path}")
+        # Paste it above the dot (centered)
+        paste_x = int(x - rotated.width / 2)
+        paste_y = int(y - rotated.height - 5)
+        img.paste(rotated, (paste_x, paste_y), rotated)
+
+    img.save(output)
+    img.show()
+    print(f"Labeled image saved as {output}")
 
 
 if __name__ == "__main__":
-    # Example: pick one logger image
-    image_file = "img/cr1000x.png"  # must exist in your working directory
-    draw_ports(image_file, "cr1000x_labeled.png")
+    label_ports_rotated("img/AM1632B.png", "aux_files/labeled.png")
