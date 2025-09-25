@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, PhotoImage
 from dictionary import dataloggers, sensors2
 
 PRIMARY_COLOR = "#EABE0D"
@@ -9,6 +9,7 @@ FONT = ("Segoe UI", 12, "bold")
 sensor_counter = 0
 
 def open_selection_interface():
+
     global sensor_counter
     selection_list = {}
 
@@ -16,7 +17,10 @@ def open_selection_interface():
     top.title("Select Datalogger and Sensor")
     top.geometry("800x800")
     top.configure(bg=DARK_COLOR)
+    icon = PhotoImage(file="img/icons/CS_logo.png")
 
+        # Set as window icon
+    top.iconphoto(False, icon)
     # --- Left and Right panels ---
     left_frame = tk.Frame(top, bg=DARK_COLOR)
     left_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=10, pady=10)
@@ -128,6 +132,7 @@ def open_selection_interface():
     ttk.Button(left_frame, text="Add Selection +", command=add_selection).pack(anchor="w", pady=5, fill="x")
     ttk.Button(left_frame, text="Delete Selected -", command=delete_selection).pack(anchor="w", pady=5, fill="x")
     ttk.Button(left_frame, text="Save & Close", command=top.destroy).pack(anchor="w", pady=10, fill="x")
+
 
     top.grab_set()
     top.wait_window()

@@ -47,6 +47,18 @@ dataloggers = {
                 ["U_1", "U_2", "GND_1", "U_3", "U_4", "GND_2", "U_5", "U_6", "GND_3", "U_7", "U_8", "GND_4", "U_9", "U_10", "GND_5", "U_11", "U_12", "GND_6",
                  "G_1", "SW_1", "SW_2", "G_2", "12V", "G_3", "C_1", "C_2", "C_3", "C_4", "RG_1", "G_4"]
                 }
+        },
+
+        "img/AM1632B.png": {
+        "model": "MuX 12/32B",
+        "connection": 
+            {
+            "power": [],
+            "interfaces": 
+                [],
+            "ports": 
+                []
+                }
         }
     }
   
@@ -182,7 +194,7 @@ sensors2 = {
     "type": "digital",
     "connection": 
     {
-        "Modbus": [("White", "U", "C"),
+        "SDI-12": [("White", "U", "C"),
                     ("Clear", "G"),
                     ("Brown", "12V"),
                     ("Black", "G")
@@ -527,6 +539,52 @@ sensors2 = {
                 ("RES", "C"),
                 ("G or GND", "G"),
                 ("COM Ground", "GND"),
+            ],
+        }
+    },
+    "Dendrometer": {
+        "name": "Dendrometer",
+        "measurement": "plants",
+        "model": "Ecomatik Dendrometer type DC3",
+        "type": "digital",
+        "connection": {
+            "SE-Measurement": [
+                ("Yellow", "H", "L"),
+                ("Green", "GND"),
+                ("Brown", "VX"),
+                ("White", "GND"),
+            ],
+            "Diff-Measurement": [
+                ("Yellow", "H"),
+                ("Green", "L"),
+                ("Brown", "VX"),
+                ("White", "GND"),
+            ],
+        }
+    },
+    "SoilVue10": {
+        "name": "SoilVue: TDR Soil Moisture and Temperature Profile Sensor",
+        "measurement": "soil",
+        "model": "SoilVue10",
+        "type": "digital",
+        "connection": {
+            "SDI-12": [
+                ("White", "C", "U"),
+                ("Clear", "G"),
+                ("Brown", "12V"),
+                ("Black", "G"),
+            ],
+        }
+    },
+    "Type T Thermocouple": {
+        "name": "Type T Thermocouple",
+        "measurement": "temperature",
+        "model": "Type T Thermocouple",
+        "type": "analog",
+        "connection": {
+            "Diff-Measurement": [
+                ("Blue", "H"),
+                ("Red", "L"),
             ],
         }
     },

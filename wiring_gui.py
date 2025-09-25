@@ -16,13 +16,13 @@ class WiringFrame(ttk.Frame):
         self.controller = controller
         self.wiring = wiring
         self.datalogger_image = datalogger_image
-        canvas_width = 1700
-        canvas_height = 900
+        self.canvas_width = 1700
+        self.canvas_height = 900
 
         # --- Scrollable canvas setup (hidden scrollbars) ---
         self.canvas = Canvas(self, bg=WHITE, highlightthickness=0,
-                             width=canvas_width-100, height=500,
-                             scrollregion=(0, 0, canvas_width, canvas_height))
+                             width=self.canvas_width-100, height=500,
+                             scrollregion=(0, 0, self.canvas_width, self.canvas_height))
         self.canvas.pack(side="left", fill="both", expand=True)
 
         # Inner frame
@@ -44,12 +44,12 @@ class WiringFrame(ttk.Frame):
         self.canvas.bind_all("<Button-5>", lambda e: self.canvas.yview_scroll(1, "units"))   # Linux down
 
         # --- Drawing canvas inside inner frame ---
-        self.drawing = Canvas(self.inner, width=canvas_width, height=canvas_height,
+        self.drawing = Canvas(self.inner, width=self.canvas_width, height=self.canvas_height,
                               bg=WHITE, highlightthickness=0)
         self.drawing.pack()
 
-        self.center_x = canvas_width // 2
-        self.center_y = canvas_height // 2
+        self.center_x = self.canvas_width // 2
+        self.center_y = self.canvas_height // 2
         self.logger_width = logger_ports[datalogger_image]["image"][0]
         self.logger_height = logger_ports[datalogger_image]["image"][1]
 
@@ -83,28 +83,58 @@ class WiringFrame(ttk.Frame):
 
     # --- Layout sensors ---
     def _layout_sensors(self):
+        """
+        The `_layout_sensors` function positions sensors on a canvas based on specified coordinates
+        and ensures that the sensor rectangles stay within canvas bounds.
+        """
         left_x = 100
-        right_x = 1200
+        right_x = self.canvas_width - 100  # adjust based on canvas width
         spacing_y = 150
         top_margin = 80
 
         for i, sensor in enumerate(self.wiring):
             side = "left" if i % 2 == 0 else "right"
+
+            # Initial placement
             y = top_margin + (i // 2) * spacing_y + (4 * i)
             x = left_x if side == "left" else right_x
 
             pin_count = len(self.wiring[sensor])
             block_height = 30 + pin_count * 12 + (pin_count * 4)
 
-            rect = self.drawing.create_rectangle(x - 50, y - block_height / 2,
-                                                 x + 50, y + block_height / 2,
-                                                 fill=WHITE, outline=DARK_COLOR, width=2)
-            label = self.drawing.create_text(x, y - block_height / 2 - 10,
-                                             text=sensor.split("-")[1] if "-" in sensor else sensor,
-                                             font=FONT, fill=DARK_COLOR)
+            half_block = block_height / 2
+
+            # --- Clamp positions to keep everything inside the canvas ---
+            # Clamp Y so the rectangle doesn't go above top or below bottom
+            if y - half_block < 0:
+                y = half_block
+            elif y + half_block > self.canvas_height:
+                y = self.canvas_height - half_block
+
+            # Clamp X so rectangles stay inside left/right margins
+            if x - 50 < 0:
+                x = 50
+            elif x + 50 > self.canvas_width:
+                x = self.canvas_width - 50
+
+            # --- Draw rectangle and label ---
+            rect = self.drawing.create_rectangle(
+                x - 50, y - half_block,
+                x + 50, y + half_block,
+                fill=WHITE, outline=DARK_COLOR, width=2
+            )
+
+            label = self.drawing.create_text(
+                x, y - half_block - 10,
+                text=sensor.split("-")[1] if "-" in sensor else sensor,
+                font=FONT, fill=DARK_COLOR
+            )
+
+            # Save positions
             self.sensor_positions[sensor] = (x, y, block_height)
             self.sensor_items[sensor] = (rect, label)
             self.wire_items[sensor] = []
+
 
     # --- Draw wires ---
     def _draw_all_wires(self):

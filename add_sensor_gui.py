@@ -13,6 +13,7 @@ WHITE = "#FFFFFF"
 FONT = ("Segoe UI", 12, "bold")
 
 
+# This class represents a frame in a graphical user interface for adding a sensor.
 class AddSensorFrame(ttk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)

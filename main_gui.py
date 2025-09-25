@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import filedialog, Menu, ttk
+from tkinter import filedialog, Menu, ttk, PhotoImage
 from wiring_functions import get_wiring_from_SC, get_auto_wiring
 from wiring_gui import WiringFrame
 from edit_gui import EditFrame
@@ -27,6 +27,10 @@ class MainApp(tk.Tk):
         self.title("Wiring Tool")
         self.geometry("1000x600")
         self.configure(bg=DARK_COLOR)
+        self.icon = PhotoImage(file="img/icons/CS_logo.png")
+
+        # Set as window icon
+        self.iconphoto(False, self.icon)
 
         # ---------------- Style ----------------
         style = ttk.Style()
@@ -115,8 +119,7 @@ class MainApp(tk.Tk):
         self.left_panel.pack(side="left", fill="y")
 
         ttk.Button(self.left_panel, text="Draw Wiring", command=self.draw).pack(fill="x", pady=5)
-        #ttk.Button(self.left_panel, text="Restart", command=self.restart_program).pack(fill="x", pady=5)
-
+        
         # Title block + regulator toggles
         self.show_regulator = tk.BooleanVar(value=False)
         self.regulator = None
@@ -139,7 +142,8 @@ class MainApp(tk.Tk):
             style="Custom.TCheckbutton"
         ).pack(fill="x", pady=5)
 
-        
+        ttk.Button(self.left_panel, text="Save as image", command=self.save_current_diagram).pack(side = "bottom", fill="x", pady=5)
+
         # Right panel (dynamic content, grid layout)
         self.right_panel = ttk.Frame(main_frame, padding=20, style="Right.TFrame")
         self.right_panel.pack(side="right", fill="both", expand=True)
@@ -248,6 +252,7 @@ class MainApp(tk.Tk):
         top.title("Add Tag")
         top.geometry("250x120")
         top.configure(bg=WHITE)
+        top.iconphoto(False, self.icon)
 
         tk.Label(top, text="Enter tag text:", bg=WHITE, fg=DARK_COLOR).pack(pady=5)
         entry = tk.Entry(top)
