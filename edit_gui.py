@@ -6,10 +6,7 @@ PRIMARY_COLOR = "#EABE0D"
 DARK_COLOR = "#4D4D4D"
 WHITE = "#FFFFFF"
 FONT = ("Segoe UI", 10)
-CABLE_TYPES = [
-    "12V", "GND", "H", "L", "VX", "P", "C", "5V", "RG",
-    "MicroSD", "12V+", "GND-", "Ground", "Ethernet", "RS232", "CSIO", "USB"
-]
+
 COLORS = ["Red", "Blue", "Green", "Black", "Gray", "Yellow", "Brown", "Orange", "White", "Purple", "Other"]
 
 
@@ -49,17 +46,19 @@ class EditFrame(ttk.Frame):
                 # Combobox for port type
                 port_entry = ttk.Combobox(self.frame, values=port_options, width=15)
                 port_entry.set(port)
+                port_entry.bind("<<ComboboxSelected>>", lambda e: save_changes())
                 port_entry.grid(row=i, column=0, padx=5, pady=2)
 
                 # Combobox for color
                 color_var = tk.StringVar(value=color)
                 color_entry = ttk.Combobox(self.frame, values=COLORS, width=15)
                 color_entry.set(color)
+                color_entry.bind("<<ComboboxSelected>>", lambda e: save_changes())
                 color_entry.grid(row=i, column=1, padx=5, pady=2)
 
                 # Save references to both comboboxes
                 self.entries.append((port_entry, color_entry))
-
+            
 
         def save_changes():
             sensor = sensor_var.get()
@@ -71,10 +70,13 @@ class EditFrame(ttk.Frame):
                     new_data[new_port] = new_color
             data[sensor] = new_data
             self.result.update(data)
+
+        def done():
+            save_changes()
             controller.draw()
 
 
         sensor_menu.bind("<<ComboboxSelected>>", lambda e: load_sensor())
         load_sensor()
 
-        ttk.Button(self, text="Save Changes", command=save_changes).pack(pady=15)
+        ttk.Button(self, text="Save Changes", command=done).pack(pady=15)
