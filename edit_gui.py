@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from dictionary import dataloggers
 
 PRIMARY_COLOR = "#EABE0D"
 DARK_COLOR = "#4D4D4D"
@@ -9,6 +10,8 @@ CABLE_TYPES = [
     "12V", "GND", "H", "L", "VX", "P", "C", "5V", "RG",
     "MicroSD", "12V+", "GND-", "Ground", "Ethernet", "RS232", "CSIO", "USB"
 ]
+COLORS = ["Red", "Blue", "Green", "Black", "Gray", "Yellow", "Brown", "Orange", "White", "Purple", "Other"]
+
 
 class EditFrame(ttk.Frame):
     def __init__(self, parent, controller, data, logger):
@@ -32,6 +35,7 @@ class EditFrame(ttk.Frame):
         self.frame.pack(pady=10, padx=10)
 
         def load_sensor():
+            port_options = dataloggers[logger]["connection"]["ports"]
             for widget in self.frame.winfo_children():
                 widget.destroy()
             self.entries.clear()
@@ -42,29 +46,33 @@ class EditFrame(ttk.Frame):
 
             port_color_map = data[sensor]
             for i, (port, color) in enumerate(port_color_map.items()):
-                port_entry = ttk.Combobox(self.frame, values=CABLE_TYPES)
-                port_entry.insert(0, port)
+                # Combobox for port type
+                port_entry = ttk.Combobox(self.frame, values=port_options, width=15)
+                port_entry.set(port)
                 port_entry.grid(row=i, column=0, padx=5, pady=2)
 
+                # Combobox for color
                 color_var = tk.StringVar(value=color)
-                color_entry = tk.Entry(
-                    self.frame, textvariable=color_var,
-                    state="readonly", width=20, font=FONT
-                )
+                color_entry = ttk.Combobox(self.frame, values=COLORS, width=15)
+                color_entry.set(color)
                 color_entry.grid(row=i, column=1, padx=5, pady=2)
 
-                self.entries.append((port_entry, color))
+                # Save references to both comboboxes
+                self.entries.append((port_entry, color_entry))
+
 
         def save_changes():
             sensor = sensor_var.get()
             new_data = {}
-            for port_entry, color in self.entries:
+            for port_entry, color_entry in self.entries:
                 new_port = port_entry.get().strip()
+                new_color = color_entry.get().strip()
                 if new_port:
-                    new_data[new_port] = color
+                    new_data[new_port] = new_color
             data[sensor] = new_data
             self.result.update(data)
-            controller.draw()  # switch back to home frame
+            controller.draw()
+
 
         sensor_menu.bind("<<ComboboxSelected>>", lambda e: load_sensor())
         load_sensor()
