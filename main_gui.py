@@ -10,6 +10,7 @@ from auto_gui import open_selection_interface
 from PIL import Image, ImageTk
 import pyautogui
 from title_block import TitleBlock
+import webbrowser
 
 # ------------------- Colors and Style -------------------
 PRIMARY_COLOR = "#EABE0D"
@@ -108,6 +109,13 @@ class MainApp(tk.Tk):
         tools_menu.add_command(label="Add Tag", command=self.add_tag)
         menubar.add_cascade(label="Tools", menu=tools_menu)
 
+
+        help_menu = Menu(menubar,font=SECONDARY_FONT, tearoff=0, bg=WHITE, fg=DARK_COLOR,
+                          activebackground=PRIMARY_COLOR, activeforeground=DARK_COLOR)
+        help_menu.add_command(label="Open documentation", command=self.open_doc)
+        menubar.add_cascade(label="Help", menu=help_menu)
+
+
         self.config(menu=menubar)
 
         # ---------------- Main Layout ----------------
@@ -165,6 +173,8 @@ class MainApp(tk.Tk):
         self.right_panel.rowconfigure(1, weight=0)  # bottom row (title block / regulator)
 
         self.show_home()
+    def open_doc(self):
+        webbrowser.open("https://github.com/natigb/CS_AutoWiring/wiki")
     def toggle_mode(self):
         if self.compact_mode_flag.get():
             self.mode = "compact"
