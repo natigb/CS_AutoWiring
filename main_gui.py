@@ -117,7 +117,8 @@ class MainApp(tk.Tk):
         # Left panel (persistent buttons)
         self.left_panel = ttk.Frame(main_frame, padding=20, style="Left.TFrame")
         self.left_panel.pack(side="left", fill="y")
-
+        self.compact_mode_flag = tk.BooleanVar(value=False)
+        self.mode = "Default"
         ttk.Button(self.left_panel, text="Draw Wiring", command=self.draw).pack(fill="x", pady=5)
         
         # Title block + regulator toggles
@@ -125,6 +126,8 @@ class MainApp(tk.Tk):
         self.regulator = None
         self.title_block = None
         self.show_title_var = tk.BooleanVar(value=False)
+
+        
 
         ttk.Checkbutton(
             self.left_panel,
@@ -142,6 +145,14 @@ class MainApp(tk.Tk):
             style="Custom.TCheckbutton"
         ).pack(fill="x", pady=5)
 
+        ttk.Checkbutton(
+            self.left_panel,
+            text="Compact Mode",
+            variable=self.compact_mode_flag,
+            command=self.toggle_mode,
+            style="Custom.TCheckbutton"
+        ).pack(fill="x", pady=5)
+
         ttk.Button(self.left_panel, text="Save as image", command=self.save_current_diagram).pack(side = "bottom", fill="x", pady=5)
 
         # Right panel (dynamic content, grid layout)
@@ -154,6 +165,12 @@ class MainApp(tk.Tk):
         self.right_panel.rowconfigure(1, weight=0)  # bottom row (title block / regulator)
 
         self.show_home()
+    def toggle_mode(self):
+        if self.compact_mode_flag.get():
+            self.mode = "compact"
+        else:
+            self.mode = "Default"
+        self.draw()
 
     def toggle_regulator(self):
         """Show/hide regulator image widget at bottom of right panel."""
@@ -295,7 +312,7 @@ class MainApp(tk.Tk):
             self.result_label.config(text="no wiring selected")
         else:
             self.clear_right_panel()
-            wf = WiringFrame(self.right_panel, self, wiring[0], wiring[1])
+            wf = WiringFrame(self.right_panel, self, wiring[0], wiring[1],self.mode)
             wf.grid(row=0, column=0, sticky="nsew")
 
     def restart_program(self):

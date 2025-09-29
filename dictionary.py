@@ -607,6 +607,19 @@ sensors2 = {
             ],
         }
     },
+    "Termocupla (test)": {
+        "name": "Termocupla (test)",
+        "measurement": "temperature",
+        "model": "Termocupla (test)",
+        "type": "analog",
+        "connection": {
+            "Default": [
+                ("Red", "H"),
+                ("Blue", "L"),
+                ("Black", "GND"),
+            ],
+        }
+    },
 }
 
 

@@ -11,14 +11,14 @@ WHITE = "#FFFFFF"
 FONT = ("Segoe UI", 12, "bold")
 
 class WiringFrame(ttk.Frame):
-    def __init__(self, parent, controller, wiring, datalogger_image):
+    def __init__(self, parent, controller, wiring, datalogger_image, mode):
         super().__init__(parent, style="Right.TFrame")
         self.controller = controller
         self.wiring = wiring
         self.datalogger_image = datalogger_image
         self.canvas_width = 1700
         self.canvas_height = 900
-
+        self.mode = mode
         # --- Scrollable canvas setup (hidden scrollbars) ---
         self.canvas = Canvas(self, bg=WHITE, highlightthickness=0,
                              width=self.canvas_width-100, height=500,
@@ -69,8 +69,8 @@ class WiringFrame(ttk.Frame):
         self.sensor_items = {}
         self.wire_items = {}
 
-        self._layout_sensors()
-        self._draw_all_wires()
+        self._layout_sensors(self.mode)
+        self._draw_all_wires(self.mode)
 
         # Dragging
         self.drag_data = {"sensor": None, "x": 0, "y": 0}
@@ -82,7 +82,7 @@ class WiringFrame(ttk.Frame):
         self.drawing.bind("<Button-3>", self.save_canvas)
 
     # --- Layout sensors ---
-    def _layout_sensors(self):
+    def _layout_sensors(self, mode):
         """
         The `_layout_sensors` function positions sensors on a canvas based on specified coordinates
         and ensures that the sensor rectangles stay within canvas bounds.
@@ -116,18 +116,23 @@ class WiringFrame(ttk.Frame):
                 x = 50
             elif x + 50 > self.canvas_width:
                 x = self.canvas_width - 50
-
+            if mode == "compact":
+                color = WHITE
+                state_mode= "hidden"
+            else:
+                color = DARK_COLOR
+                state_mode= "normal"
             # --- Draw rectangle and label ---
             rect = self.drawing.create_rectangle(
                 x - 50, y - half_block,
                 x + 50, y + half_block,
-                fill=WHITE, outline=DARK_COLOR, width=2
+                fill=WHITE, outline=color, width=2
             )
 
             label = self.drawing.create_text(
                 x, y - half_block - 10,
                 text=sensor.split("-")[1] if "-" in sensor else sensor,
-                font=FONT, fill=DARK_COLOR
+                font=FONT, fill=color, state=state_mode
             )
 
             # Save positions
@@ -137,11 +142,11 @@ class WiringFrame(ttk.Frame):
 
 
     # --- Draw wires ---
-    def _draw_all_wires(self):
+    def _draw_all_wires(self, mode):
         for sensor in self.wiring:
-            self._draw_sensor_wires(sensor)
+            self._draw_sensor_wires(sensor, mode)
 
-    def _draw_sensor_wires(self, sensor):
+    def _draw_sensor_wires(self, sensor, mode):
         for wid in self.wire_items[sensor]:
             self.drawing.delete(wid)
         self.wire_items[sensor].clear()
@@ -151,7 +156,8 @@ class WiringFrame(ttk.Frame):
         pins = self.wiring[sensor]
 
         num_pins = len(pins)
-        spacing = sheight / (num_pins + 1) + 3
+
+        spacing = sheight / (num_pins + 1) if mode=="compact" else sheight / (num_pins + 1) + 3
         offsets = [sy - sheight / 2 + spacing * (i + 1) for i in range(num_pins)]
 
         for i, (port, color_tag) in enumerate(pins.items()):
@@ -174,6 +180,7 @@ class WiringFrame(ttk.Frame):
                     logger_x, logger_y = sx, exit_y
             else:
                 logger_x, logger_y = sx, exit_y
+            
 
             mid_x = sx + 60 if side == "left" else sx - 60
 
@@ -183,11 +190,23 @@ class WiringFrame(ttk.Frame):
             dot = self.drawing.create_oval(logger_x - 3, logger_y - 3,
                                            logger_x + 3, logger_y + 3,
                                            fill=color, outline="")
-            text1 = self.drawing.create_text((sx + mid_x) / 2, exit_y - 6,
-                                             text=color_tag, font=("Arial", 7), fill="black")
-            
-            text2 = self.drawing.create_text(((sx + mid_x) / 2) + (60 if side == "left" else -60),
-                                             exit_y - 6, text=port, font=("Arial", 7), fill=color)
+            label_x =0
+            label_y=0
+            if mode == "compact":
+                compact_label = sensor + " ("+color_tag+") -> "+port
+                text1 = self.drawing.create_text(sx + (-60 if side == "left" else 60), exit_y - 7,
+                                                text=compact_label, font=("Arial", 7), fill="black")
+                
+                text2 = self.drawing.create_text(((sx + mid_x) / 2) + (60 if side == "left" else -60),
+                                                exit_y - 6, font=("Arial", 7), fill=WHITE)
+            else:
+                
+
+                text1 = self.drawing.create_text((sx + mid_x) / 2, exit_y - 6,
+                                                text=color_tag, font=("Arial", 7), fill="black")
+                
+                text2 = self.drawing.create_text(((sx + mid_x) / 2) + (60 if side == "left" else -60),
+                                                exit_y - 6, text=port, font=("Arial", 7), fill=color)
 
             self.wire_items[sensor].extend([line, dot, text1, text2])
 
@@ -216,7 +235,7 @@ class WiringFrame(ttk.Frame):
             self.drag_data["x"] = event.x
             self.drag_data["y"] = event.y
 
-            self._draw_sensor_wires(sensor)
+            self._draw_sensor_wires(sensor, self.mode)
 
     def on_release(self, event):
         self.drag_data["sensor"] = None
