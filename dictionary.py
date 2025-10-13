@@ -559,6 +559,18 @@ sensors2 = {
                 ("G or GND", "G"),
                 ("COM Ground", "GND"),
             ],
+            "4x16 mode": [
+                ("RES", "C"),
+                ("CLK", "C"),
+                ("G or GND", "G"),
+                ("12V", "12V"),
+                ("COM ODD H", "U","H"),
+                ("COM ODD L", "U","L"),
+                ("COM Ground", "GND"),
+                ("COM EVEN H", "U","H"),
+                ("COM EVEN L", "U","L"),
+                
+            ],
         }
     },
     "Dendrometer": {
@@ -617,6 +629,128 @@ sensors2 = {
                 ("Red", "H"),
                 ("Blue", "L"),
                 ("Black", "GND"),
+            ],
+        }
+    },
+    "ClariVue20": {
+        "name": "ISO 7027-Compliant, Side-Scatter Turbidity Sensor",
+        "measurement": "turbidity",
+        "model": "ClariVue20",
+        "type": "digital",
+        "connection": {
+            "SDI-12": [
+                ("White", "C", "U"),
+                ("Brown", "G"),
+                ("Blue", "G"),
+                ("Green", "G"),
+                ("Red", "12V"),
+                ("Black", "G"),
+                ("Clear", "G"),
+            ],
+            "RS-485": [
+                ("White", "C"),
+                ("Brown", "C"),
+                ("Blue", "G"),
+                ("Green", "G"),
+                ("Red", "12V"),
+                ("Black", "G"),
+                ("Clear", "G"),
+            ],
+            "Analog": [
+                ("White", "C", "5V", "U"),
+                ("Brown", "G"),
+                ("Blue", "H", "U"),
+                ("Green", "L", "U"),
+                ("Red", "12V"),
+                ("Black", "G"),
+                ("Clear", "G"),
+            ],
+        }
+    },
+    "Weir Monitor (VW)": {
+        "name": "Water level monitoring system that uses a vibrating wire force transducer",
+        "measurement": "water",
+        "model": "4675LV",
+        "type": "analog",
+        "connection": {
+            "Default": [
+                ("Red", "U"),
+                ("Black", "U"),
+                ("White", "U"),
+                ("Green", "U"),
+                ("Shield", "GND"),
+            ],
+        }
+    },
+    "CELL215": {
+        "name": "4G LTE CAT1 Cellular Module for EMEA Countries",
+        "measurement": "comunications",
+        "model": "CELL215",
+        "type": "other",
+        "connection": {
+            "Default": [
+                ("Purple", "CSIO"),
+            ],
+        }
+    },
+    "BP12": {
+        "name": "12 Ah 12 V Sealed Rechargeable Battery with Mounts",
+        "measurement": "power",
+        "model": "BP12",
+        "type": "power",
+        "connection": {
+            "Default": [
+                ("Red", "Bat+"),
+                ("Black", "Bat-"),
+            ],
+        }
+    },
+    "CS210": {
+        "name": "Enclosure Relative Humidity Sensor",
+        "measurement": "humidity",
+        "model": "",
+        "type": "digital",
+        "connection": {
+            "SDI-12": [
+                ("White", "U", "H", "L"),
+                ("Clear", "AG", "GND"),
+                ("Black", "U", "5V", "C"),
+            ],
+        }
+    },
+    "Piezometer with Thermistor": {
+        "name": "Vibrating Wire Piezometer",
+        "measurement": "flow",
+        "model": "Geokon 4500",
+        "type": "other",
+        "connection": {
+            "Default": [
+                ("Coil +, Red", "H", "U"),
+                ("Coil -, Black", "L", "U"),
+                ("Thermistor +, Green", "H", "U"),
+                ("Thermistor -, White", "L", "U"),
+                ("Drain, Blue", "GND"),
+            ],
+        }
+    },
+    "DataloggerCOM": {
+        "name": "DataloggerCOM (for AM16/32B)",
+        "measurement": "other",
+        "model": "DataloggerCOM",
+        "type": "digital",
+        "connection": {
+            "Default": [
+                ("RES, Blue", "RES"),
+                ("CLK, Green", "CLK"),
+                ("G, Black", "G"),
+                ("12V, Red", "12V"),
+            ],
+            "4-wire": [
+                ("H ODD, Blue", "H"),
+                ("L ODD, Blue", "L"),
+                ("GND, Black", "GND"),
+                ("H EVEN, Green", "H"),
+                ("L EVEN, Green", "L"),
             ],
         }
     },

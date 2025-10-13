@@ -91,11 +91,11 @@ def get_wiring_from_SC(filename):
                 ground_counter[current_sensor] = 1
                 g_counter[current_sensor] = 1
                 sensor_counter+=1
-
+    
     return [wiring, image_name]
 
 def get_auto_wiring(datalogger_ports, sensors):
-    
+    #print(datalogger_ports, sensors)
     available_ports = list(datalogger_ports.keys())[1:]
     wiring = {}
     for sensor_name in sensors:
