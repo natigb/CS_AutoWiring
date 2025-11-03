@@ -2,7 +2,9 @@ import tkinter as tk
 from tkinter import Canvas
 from PIL import Image, ImageTk
 from ports_coordenates import logger_ports
-
+"""
+Auxiliary file to get port coordintaes of image when adding new datalogger/device
+"""
 datalogger_image = "img/AM1632B.png"
 root = tk.Tk()
 root.title("Sensor Wiring Diagram")

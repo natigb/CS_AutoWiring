@@ -21,12 +21,14 @@ SECONDARY_FONT = ("Segoe UI", 10)
 
 wiring = "no wires"
 
-
+"""
+Main App Tk window
+"""
 class MainApp(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Wiring Tool")
-        self.geometry("1000x600")
+        self.geometry("1700x900")
         self.configure(bg=DARK_COLOR)
         self.icon = PhotoImage(file="img/icons/CS_logo.png")
 
@@ -127,15 +129,25 @@ class MainApp(tk.Tk):
         self.left_panel.pack(side="left", fill="y")
         self.compact_mode_flag = tk.BooleanVar(value=False)
         self.mode = "Default"
-        ttk.Button(self.left_panel, text="Draw Wiring", command=self.draw).pack(fill="x", pady=5)
+
+        cs_logo = Image.open("img/decorations/cs_logo.png").resize((219, 196))
+        cs_logo_tk = ImageTk.PhotoImage(cs_logo)
+
+        # Create the label and store a reference to the image
+        self.cs_logo_label = ttk.Label(
+            self.left_panel,
+            image=cs_logo_tk,
+            background=DARK_COLOR
+        )
+        self.cs_logo_label.image = cs_logo_tk 
+        self.cs_logo_label.pack(fill="x", pady=5)
+        ttk.Button(self.left_panel, text="Draw Wiring", command=self.draw).pack(fill="x", pady=20)
         
         # Title block + regulator toggles
         self.show_regulator = tk.BooleanVar(value=False)
         self.regulator = None
         self.title_block = None
         self.show_title_var = tk.BooleanVar(value=False)
-
-        
 
         ttk.Checkbutton(
             self.left_panel,
@@ -237,8 +249,18 @@ class MainApp(tk.Tk):
 
     def show_home(self):
         self.clear_right_panel()
-        self.result_label = ttk.Label(self.right_panel, text="Create new wiring or open from Short Cut")
-        self.result_label.grid(row=0, column=0, pady=20, sticky="n")
+        background = Image.open("img/decorations/background.png")#.resize((2000, 912))
+        background_tk = ImageTk.PhotoImage(background)
+
+        self.result_label = ttk.Label(
+            self.right_panel,
+            image=background_tk,
+            text="Create new wiring or open from Short Cut",
+            compound="center",
+            foreground= WHITE 
+        )
+        self.result_label.image = background_tk 
+        self.result_label.grid(row=0, column=0, pady=0, sticky="nw")
 
     def choose_def_file(self):
         global wiring

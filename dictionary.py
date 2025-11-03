@@ -1,4 +1,4 @@
-
+#Datalogger and other devices
 dataloggers = { 
       "img/cr1000x.png": {
         "model": "CR1000Xe",
@@ -80,7 +80,8 @@ dataloggers = {
                 }
         }
     }
-  
+
+# Sensor or devices conected to datalogger  
 sensors2 = {
 
     "05103": {

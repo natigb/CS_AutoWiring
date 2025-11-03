@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from PIL import Image, ImageTk
 from dictionary import dataloggers
 
 PRIMARY_COLOR = "#EABE0D"
@@ -9,7 +10,9 @@ FONT = ("Segoe UI", 10)
 
 COLORS = ["Red", "Blue", "Green", "Black", "Gray", "Yellow", "Brown", "Orange", "White", "Purple", "Other"]
 
-
+"""
+This class represents a frame to edit the current wiring and change connections and cable colors as needed
+"""
 class EditFrame(ttk.Frame):
     def __init__(self, parent, controller, data, logger):
         super().__init__(parent)
@@ -27,6 +30,7 @@ class EditFrame(ttk.Frame):
             values=list(data.keys()), state="readonly", width=30
         )
         sensor_menu.pack(pady=5)
+
 
         self.frame = ttk.Frame(self)
         self.frame.pack(pady=10, padx=10)
@@ -78,5 +82,17 @@ class EditFrame(ttk.Frame):
 
         sensor_menu.bind("<<ComboboxSelected>>", lambda e: load_sensor())
         load_sensor()
+        
 
         ttk.Button(self, text="Save Changes", command=done).pack(pady=15)
+        #Banner
+        banner = Image.open("img/decorations/banner1.png").resize((2000,364))
+        banner_tk = ImageTk.PhotoImage(banner)
+
+        self.cs_banner_label = ttk.Label(
+            self,
+            image=banner_tk,
+            background=DARK_COLOR
+        )
+        self.cs_banner_label.image = banner_tk 
+        self.cs_banner_label.pack(side= "bottom",fill="x", pady=0)

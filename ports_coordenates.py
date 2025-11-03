@@ -1,4 +1,4 @@
-# logger_ports.py
+# This file stores the coordinates of each pin in each datalogger
 logger_ports = {
     "img/cr1000x.png": {
     "image": (690, 308),

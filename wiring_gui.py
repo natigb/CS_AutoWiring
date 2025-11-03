@@ -10,6 +10,9 @@ DARK_COLOR = "#4D4D4D"
 WHITE = "#FFFFFF"
 FONT = ("Segoe UI", 12, "bold")
 
+"""
+This class is a frame to show the wiring diagram, results from wiring_functions.py
+"""
 class WiringFrame(ttk.Frame):
     def __init__(self, parent, controller, wiring, datalogger_image, mode):
         super().__init__(parent, style="Right.TFrame")
@@ -147,6 +150,16 @@ class WiringFrame(ttk.Frame):
             self._draw_sensor_wires(sensor, mode)
 
     def _draw_sensor_wires(self, sensor, mode):
+        """
+        This function draws sensor wires on a canvas based on specified parameters such as sensor
+        position, wiring configuration, and display mode.
+        
+        :param sensor: The `sensor` parameter in the `_draw_sensor_wires` method represents the sensor
+        for which the wires are being drawn. It is used to identify the specific sensor for which the
+        wiring connections are being visualized and drawn on the canvas
+        :param mode: The `mode` parameter in the `_draw_sensor_wires` method is used to determine the
+        layout style for drawing sensor wires. It can have two possible results: compacted or draqn squares
+        """
         for wid in self.wire_items[sensor]:
             self.drawing.delete(wid)
         self.wire_items[sensor].clear()

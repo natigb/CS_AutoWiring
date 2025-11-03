@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
+from PIL import Image, ImageTk
 
 DICT_FILE = "dictionary.py"
 COLORS = ["Red", "Blue", "Green", "Black", "Gray", "Yellow", "Brown", "Orange", "White", "Purple", "Other"]
@@ -13,7 +14,10 @@ WHITE = "#FFFFFF"
 FONT = ("Segoe UI", 12, "bold")
 
 
-# This class represents a frame in a graphical user interface for adding a sensor.
+"""
+This class represents a frame in a graphical user interface for adding a sensor to the dictionary. 
+It uses the dictionary.py file and adds another object to sensor list. The frame is used in main_gui.py
+"""
 class AddSensorFrame(ttk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
@@ -108,6 +112,16 @@ class AddSensorFrame(ttk.Frame):
 
         # --- Save button ---
         ttk.Button(scroll_frame, text="Save Sensor", command=self.save_sensor).pack(pady=10)
+        #Banner
+        banner = Image.open("img/decorations/banner2.png").resize((600,800))
+        banner_tk = ImageTk.PhotoImage(banner)
+
+        self.cs_banner_label = ttk.Label(
+            self,
+            image=banner_tk
+        )
+        self.cs_banner_label.image = banner_tk 
+        self.cs_banner_label.pack(side= "right",fill="x", pady=0)
 
     def save_sensor(self):
         key = self.key_entry.get().strip()
@@ -161,6 +175,16 @@ class AddSensorFrame(ttk.Frame):
 
         with open(DICT_FILE, "w", encoding="utf-8") as f:
             f.writelines(lines)
+        #Banner
+        banner = Image.open("img/decorations/banner3.png").resize((550,260))
+        banner_tk = ImageTk.PhotoImage(banner)
+
+        self.cs_banner_label = ttk.Label(
+            self,
+            image=banner_tk
+        )
+        self.cs_banner_label.image = banner_tk 
+        self.cs_banner_label.pack(side= "bottom",fill="x", pady=0)
 
         messagebox.showinfo("Saved", f"Sensor {key} appended successfully.")
         self.controller.show_home()

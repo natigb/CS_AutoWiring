@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, PhotoImage
 from dictionary import dataloggers, sensors2
+from PIL import Image, ImageTk
 
 PRIMARY_COLOR = "#EABE0D"
 DARK_COLOR = "#4D4D4D"
@@ -8,6 +9,10 @@ WHITE = "#FFFFFF"
 FONT = ("Segoe UI", 12, "bold")
 sensor_counter = 0
 
+"""
+Toplevel window to add and delete sensors and choose datalogger and create a new wiring diagram. 
+It's accesed through main_gui.py interface. (File-> New Wiring)
+"""
 def open_selection_interface():
 
     global sensor_counter
@@ -19,11 +24,22 @@ def open_selection_interface():
     top.configure(bg=DARK_COLOR)
     icon = PhotoImage(file="img/icons/CS_logo.png")
 
-        # Set as window icon
+    # Set as window icon
     top.iconphoto(False, icon)
     # --- Left and Right panels ---
     left_frame = tk.Frame(top, bg=DARK_COLOR)
     left_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=10, pady=10)
+    #Banner
+    banner = Image.open("img/decorations/banner3.png").resize((550,260))
+    banner_tk = ImageTk.PhotoImage(banner)
+
+    cs_banner_label = ttk.Label(
+        left_frame,
+        image=banner_tk,
+        background= DARK_COLOR
+    )
+    cs_banner_label.image = banner_tk 
+    cs_banner_label.pack(side= "bottom",fill="x", pady=0)
 
     right_frame = tk.Frame(top, bg=DARK_COLOR)
     right_frame.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True, padx=10, pady=10)

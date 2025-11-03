@@ -7,7 +7,9 @@ DARK_COLOR = "#4D4D4D"
 WHITE = "#FFFFFF"
 FONT = ("Segoe UI", 10, "bold")
 
-
+"""
+This class represent the frame that hold the Title Block with relevant information and with the hability to be edited
+"""
 class TitleBlock(ttk.Frame):
     def __init__(self, parent, company="", content="", project="", made_by="", **kwargs):
         super().__init__(parent, **kwargs)
@@ -53,6 +55,7 @@ class TitleBlock(ttk.Frame):
 
 
 # Test the widget standalone
+"""
 if __name__ == "__main__":
     root = tk.Tk()
     root.title("Title Block Example")
@@ -67,3 +70,4 @@ if __name__ == "__main__":
     tb.pack(padx=20, pady=20, fill="x")
 
     root.mainloop()
+"""
