@@ -67,7 +67,7 @@ def get_wiring_from_SC(filename):
     for line in lines:
         line = line.strip()
 
-        if "-Cableado para" in line and start_flag:
+        if ("-Cableado para" or "-Wiring for") in line and start_flag:
             image_name = "img/"+line.split(" ")[2].strip("-").lower()+".png"
             in_wiring_section = True
             start_flag = False
@@ -91,11 +91,11 @@ def get_wiring_from_SC(filename):
                 ground_counter[current_sensor] = 1
                 g_counter[current_sensor] = 1
                 sensor_counter+=1
-
+    
     return [wiring, image_name]
 
 def get_auto_wiring(datalogger_ports, sensors):
-
+    #print(datalogger_ports, sensors)
     available_ports = list(datalogger_ports.keys())[1:]
     wiring = {}
     for sensor_name in sensors:
@@ -110,7 +110,7 @@ def get_auto_wiring(datalogger_ports, sensors):
                     available_ports.pop(port_index)
                     break
                 else:
-                    dl_port = color
+                    dl_port = port +  " (unavailable): " + color
             object[sensor_name].update({dl_port : color})   
         wiring.update(object)
     

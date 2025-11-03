@@ -47,6 +47,37 @@ dataloggers = {
                 ["U_1", "U_2", "GND_1", "U_3", "U_4", "GND_2", "U_5", "U_6", "GND_3", "U_7", "U_8", "GND_4", "U_9", "U_10", "GND_5", "U_11", "U_12", "GND_6",
                  "G_1", "SW_1", "SW_2", "G_2", "12V", "G_3", "C_1", "C_2", "C_3", "C_4", "RG_1", "G_4"]
                 }
+        },
+
+        "img/AM1632B.png": {
+        "model": "MuX 12/32B",
+        "connection": 
+            {
+            "power": [],
+            "interfaces": 
+                [],
+            "ports": 
+                [
+                    "H_1", "L_1", "GND_1", "H_2", "L_2", "GND_2", "H_3", "L_3", "GND_3",
+                    "H_4", "L_4", "GND_4", "H_5", "L_5", "GND_5", "H_6", "L_6", "GND_6",
+                    "H_7", "L_7", "GND_7", "H_8", "L_8", "GND_8", "H_9", "L_9", "GND_9",
+                    "H_10", "L_10", "GND_10", "H_11", "L_11", "GND_11", "H_12", "L_12", "GND_12",
+
+                    "RES", "CLK", "G_1", "12V_1",
+
+                    "H_O", "L_O", "GND_O", "H_E", "L_E", "GND_E",
+
+                    "H_13", "L_13", "GND_13", "H_14", "L_14", "GND_14", "H_15", "L_15", "GND_15",
+                    "H_16", "L_16", "GND_16", "H_17", "L_17", "GND_17", "H_18", "L_18", "GND_18",
+                    "H_19", "L_19", "GND_19", "H_20", "L_20", "GND_20",
+
+                    "H_21", "L_21", "GND_21", "H_22", "L_22", "GND_22", "H_23", "L_23", "GND_23",
+                    "H_24", "L_24", "GND_24", "H_25", "L_25", "GND_25", "H_26", "L_26", "GND_26",
+                    "H_27", "L_27", "GND_27", "H_28", "L_28", "GND_28", "H_29", "L_29", "GND_29",
+                    "H_30", "L_30", "GND_30", "H_31", "L_31", "GND_31", "H_32", "L_32", "GND_32"
+                ]
+
+                }
         }
     }
   
@@ -131,7 +162,7 @@ sensors2 = {
     },
     "HygroVue10": {
     "name": "Digital Temperature an Relative Humidity Sensor",
-    "measurement" : "temperature, humidity",
+    "measurement" : "temperature",
     "model": "HygroVue10",
     "type": "digital",
     "connection": 
@@ -146,7 +177,7 @@ sensors2 = {
     },
     "HygroVue5": {
     "name": "Digital Temperature an Relative Humidity Sensor",
-    "measurement" : "temperature, humidity",
+    "measurement" : "temperature",
     "model": "HygroVue5",
     "type": "digital",
     "connection": 
@@ -161,7 +192,7 @@ sensors2 = {
     },
     "EE181-L": {
     "name": "Air Temperature an Relative Humidity Sensor",
-    "measurement" : "temperature, humidity",
+    "measurement" : "temperature",
     "model": "EE181-L",
     "type": "analog",
     "connection": 
@@ -177,12 +208,12 @@ sensors2 = {
     },
     "ClimaVue50 G2": {
     "name": "Compact Digital Weather Sensor",
-    "measurement" : "all",
+    "measurement" : "basic weather",
     "model": "ClimaVue50 G2",
     "type": "digital",
     "connection": 
     {
-        "Modbus": [("White", "U", "C"),
+        "SDI-12": [("White", "U", "C"),
                     ("Clear", "G"),
                     ("Brown", "12V"),
                     ("Black", "G")
@@ -192,7 +223,7 @@ sensors2 = {
     },
     "ClimaVue40": {
     "name": "Compact Digital Weather Sensor",
-    "measurement" : "all",
+    "measurement" : "basic weather",
     "model": "ClimaVue40",
     "type": "digital",
     "connection": 
@@ -208,7 +239,7 @@ sensors2 = {
     },
     "MetSENS": {
     "name": "Compact Weather Sensor",
-    "measurement" : "all",
+    "measurement" : "basic weather",
     "model": "MetSENS",
     "type": "digital",
     "connection": 
@@ -235,7 +266,7 @@ sensors2 = {
     },
     "CS100": {
     "name": "Barometric Pressure Sensor",
-    "measurement" : "baro_pressure",
+    "measurement" : "barometric pressure",
     "model": "CS100",
     "type": "analog",
     "connection": 
@@ -259,7 +290,7 @@ sensors2 = {
     },
     "BaroVue10": {
     "name": "Barometric Pressure Sensor",
-    "measurement" : "baro_pressure",
+    "measurement" : "barometric pressure",
     "model": "CS100",
     "type": "digital",
     "connection": 
@@ -428,6 +459,298 @@ sensors2 = {
                 ("CHG", "-Port 1-"),
                 ("G", "-Port 1-"),
                 ("Solar", "-Port 1-"),
+            ],
+        }
+    },
+    "Generic Regulator": {
+        "name": "Generic Regulator",
+        "measurement": "battery",
+        "model": "Generic Regulator",
+        "type": "power",
+        "connection": {
+            "Default": [
+                ("Red", "12V+"),
+                ("Black", "GND-"),
+                ("Battery", "Battery"),
+                ("Solar Panel", "Solar Panel"),
+            ],
+        }
+    },
+    "CS106": {
+        "name": "Barometric Pressure Sensor",
+        "measurement": "barometric pressure",
+        "model": "CS106",
+        "type": "analog",
+        "connection": {
+            "SE-Measurement": [
+                ("Blue", "U", "H", "L"),
+                ("Yellow", "GND"),
+                ("Black", "G"),
+                ("Green", "U", "C"),
+                ("Red", "12V"),
+                ("Shield", "GND"),
+            ],
+            "Diff-Measurement": [
+                ("Blue", "U", "H"),
+                ("Yellow", "U", "L"),
+                ("Black", "G"),
+                ("Green", "U"),
+                ("Red", "12V"),
+                ("Shield", "GND"),
+            ],
+        }
+    },
+    "SkyVUE8": {
+        "name": "SkyVue8 LIDAR Ceilometer",
+        "measurement": "clouds",
+        "model": "CS136",
+        "type": "digital",
+        "connection": {
+            "Default": [
+                ("Blue", "U", "C"),
+                ("White", "U", "C"),
+                ("Green", "GND"),
+            ],
+        }
+    },
+    "SkyVUEPro": {
+        "name": "10km Ceiling LIDAR Ceilometer",
+        "measurement": "clouds",
+        "model": "CS135",
+        "type": "digital",
+        "connection": {
+            "Default": [
+                ("Blue", "U", "C"),
+                ("White", "U", "C"),
+                ("Green", "GND"),
+            ],
+        }
+    },
+    "52202": {
+        "name": "Electrically Heated Rain and Snow Gage",
+        "measurement": "rain",
+        "model": "52202-L",
+        "type": "digital",
+        "connection": {
+            "Pulse": [
+                ("Black", "U", "P", "p_SW"),
+                ("White", "GND"),
+                ("Clear", "GND"),
+            ],
+            "Control": [
+                ("Black", "C"),
+                ("White", "5V"),
+                ("Clear", "GND"),
+            ],
+        }
+    },
+    "AM16/32B": {
+        "name": "16- or 32-Channel Relay Multiplexer",
+        "measurement": "other",
+        "model": "AM16/32B",
+        "type": "other",
+        "connection": {
+            "Default": [
+                ("COM ODD H", "H"),
+                ("COM ODD L", "L"),
+                ("12V", "12V"),
+                ("CLK", "C"),
+                ("RES", "C"),
+                ("G or GND", "G"),
+                ("COM Ground", "GND"),
+            ],
+            "4x16 mode": [
+                ("RES", "C"),
+                ("CLK", "C"),
+                ("G or GND", "G"),
+                ("12V", "12V"),
+                ("COM ODD H", "U","H"),
+                ("COM ODD L", "U","L"),
+                ("COM Ground", "GND"),
+                ("COM EVEN H", "U","H"),
+                ("COM EVEN L", "U","L"),
+                
+            ],
+        }
+    },
+    "Dendrometer": {
+        "name": "Dendrometer",
+        "measurement": "plants",
+        "model": "Ecomatik Dendrometer type DC3",
+        "type": "digital",
+        "connection": {
+            "SE-Measurement": [
+                ("Yellow", "H", "L"),
+                ("Green", "GND"),
+                ("Brown", "VX"),
+                ("White", "GND"),
+            ],
+            "Diff-Measurement": [
+                ("Yellow", "H"),
+                ("Green", "L"),
+                ("Brown", "VX"),
+                ("White", "GND"),
+            ],
+        }
+    },
+    "SoilVue10": {
+        "name": "SoilVue: TDR Soil Moisture and Temperature Profile Sensor",
+        "measurement": "soil",
+        "model": "SoilVue10",
+        "type": "digital",
+        "connection": {
+            "SDI-12": [
+                ("White", "C", "U"),
+                ("Clear", "G"),
+                ("Brown", "12V"),
+                ("Black", "G"),
+            ],
+        }
+    },
+    "Type T Thermocouple": {
+        "name": "Type T Thermocouple",
+        "measurement": "temperature",
+        "model": "Type T Thermocouple",
+        "type": "analog",
+        "connection": {
+            "Diff-Measurement": [
+                ("Blue", "H"),
+                ("Red", "L"),
+            ],
+        }
+    },
+    "Termocupla (test)": {
+        "name": "Termocupla (test)",
+        "measurement": "temperature",
+        "model": "Termocupla (test)",
+        "type": "analog",
+        "connection": {
+            "Default": [
+                ("Red", "H"),
+                ("Blue", "L"),
+                ("Black", "GND"),
+            ],
+        }
+    },
+    "ClariVue20": {
+        "name": "ISO 7027-Compliant, Side-Scatter Turbidity Sensor",
+        "measurement": "turbidity",
+        "model": "ClariVue20",
+        "type": "digital",
+        "connection": {
+            "SDI-12": [
+                ("White", "C", "U"),
+                ("Brown", "G"),
+                ("Blue", "G"),
+                ("Green", "G"),
+                ("Red", "12V"),
+                ("Black", "G"),
+                ("Clear", "G"),
+            ],
+            "RS-485": [
+                ("White", "C"),
+                ("Brown", "C"),
+                ("Blue", "G"),
+                ("Green", "G"),
+                ("Red", "12V"),
+                ("Black", "G"),
+                ("Clear", "G"),
+            ],
+            "Analog": [
+                ("White", "C", "5V", "U"),
+                ("Brown", "G"),
+                ("Blue", "H", "U"),
+                ("Green", "L", "U"),
+                ("Red", "12V"),
+                ("Black", "G"),
+                ("Clear", "G"),
+            ],
+        }
+    },
+    "Weir Monitor (VW)": {
+        "name": "Water level monitoring system that uses a vibrating wire force transducer",
+        "measurement": "water",
+        "model": "4675LV",
+        "type": "analog",
+        "connection": {
+            "Default": [
+                ("Red", "U"),
+                ("Black", "U"),
+                ("White", "U"),
+                ("Green", "U"),
+                ("Shield", "GND"),
+            ],
+        }
+    },
+    "CELL215": {
+        "name": "4G LTE CAT1 Cellular Module for EMEA Countries",
+        "measurement": "comunications",
+        "model": "CELL215",
+        "type": "other",
+        "connection": {
+            "Default": [
+                ("Purple", "CSIO"),
+            ],
+        }
+    },
+    "BP12": {
+        "name": "12 Ah 12 V Sealed Rechargeable Battery with Mounts",
+        "measurement": "power",
+        "model": "BP12",
+        "type": "power",
+        "connection": {
+            "Default": [
+                ("Red", "Bat+"),
+                ("Black", "Bat-"),
+            ],
+        }
+    },
+    "CS210": {
+        "name": "Enclosure Relative Humidity Sensor",
+        "measurement": "humidity",
+        "model": "",
+        "type": "digital",
+        "connection": {
+            "SDI-12": [
+                ("White", "U", "H", "L"),
+                ("Clear", "AG", "GND"),
+                ("Black", "U", "5V", "C"),
+            ],
+        }
+    },
+    "Piezometer with Thermistor": {
+        "name": "Vibrating Wire Piezometer",
+        "measurement": "flow",
+        "model": "Geokon 4500",
+        "type": "other",
+        "connection": {
+            "Default": [
+                ("Coil +, Red", "H", "U"),
+                ("Coil -, Black", "L", "U"),
+                ("Thermistor +, Green", "H", "U"),
+                ("Thermistor -, White", "L", "U"),
+                ("Drain, Blue", "GND"),
+            ],
+        }
+    },
+    "DataloggerCOM": {
+        "name": "DataloggerCOM (for AM16/32B)",
+        "measurement": "other",
+        "model": "DataloggerCOM",
+        "type": "digital",
+        "connection": {
+            "Default": [
+                ("RES, Blue", "RES"),
+                ("CLK, Green", "CLK"),
+                ("G, Black", "G"),
+                ("12V, Red", "12V"),
+            ],
+            "4-wire": [
+                ("H ODD, Blue", "H"),
+                ("L ODD, Blue", "L"),
+                ("GND, Black", "GND"),
+                ("H EVEN, Green", "H"),
+                ("L EVEN, Green", "L"),
             ],
         }
     },
