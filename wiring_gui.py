@@ -68,6 +68,7 @@ class WiringFrame(ttk.Frame):
             self.drawing.create_text(self.center_x, self.center_y, text="CR1000X", font=("Arial", 14))
 
         # Data structures
+
         # Sensor positions to save position of draggable sensors
         self.sensor_positions = {}
         # Sensor items to save rectangle and label
@@ -84,10 +85,8 @@ class WiringFrame(ttk.Frame):
         self.drawing.bind("<B1-Motion>", self.on_drag)
         self.drawing.bind("<ButtonRelease-1>", self.on_release)
 
-        # Right-click save (deactivated)
-        #self.drawing.bind("<Button-3>", self.save_canvas)
 
-    # --- Layout sensors ---
+    # Layout the sensors in canvas
     def _layout_sensors(self, mode):
         """
         The `_layout_sensors` function positions sensors on a canvas based on specified coordinates
@@ -128,6 +127,7 @@ class WiringFrame(ttk.Frame):
             else:
                 color = DARK_COLOR
                 state_mode= "normal"
+                
             # Draw rectangle and label
             rect = self.drawing.create_rectangle(
                 x - 50, y - half_block,

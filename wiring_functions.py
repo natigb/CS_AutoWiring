@@ -101,7 +101,7 @@ def get_wiring_from_SC(filename):
             if ":" in line and current_sensor:
                 port, color = map(str.strip, line.split(":", 1))
                 color = color.split('(')[0].strip()
-                normalized_port = normalize_port_name(port, ground_counter, g_counter, current_sensor)
+                normalized_port = normalize_port_name(port)
                 wiring[current_sensor][normalized_port] = color
 
             else:
