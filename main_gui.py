@@ -65,7 +65,7 @@ class MainApp(tk.Tk):
         style.configure(
             "Custom.TCheckbutton",
             font=FONT,
-            foreground=PRIMARY_COLOR,
+            foreground=WHITE,
             background=DARK_COLOR,
             focuscolor=DARK_COLOR,
             indicatormargin=5,
@@ -95,7 +95,7 @@ class MainApp(tk.Tk):
         file_menu.add_command(label="New Wiring", image=New_icon_tk, compound="left", command=self.automatic_action)
         file_menu.add_command(label="Open from ShortCut", image=SC_icon_tk, compound="left", command=self.choose_def_file)
         file_menu.add_command(label="Save Diagram", image=Save_icon_tk, compound="left", command=self.save_current_diagram)
-        file_menu.add_command(label="Restart program", image=Restart_icon_tk, compound="left", command=self.restart_program)
+        file_menu.add_command(label="Restart program", compound="left", command=self.restart_program)
         file_menu.add_command(label="Exit Program", command=self.quit)
         menubar.add_cascade(label="File", menu=file_menu)
 
@@ -260,7 +260,7 @@ class MainApp(tk.Tk):
             foreground= WHITE 
         )
         self.result_label.image = background_tk 
-        self.result_label.grid(row=0, column=0, pady=0, sticky="nw")
+        self.result_label.grid(row=0, column=0, pady=0, sticky="ew")
 
     def choose_def_file(self):
         global wiring

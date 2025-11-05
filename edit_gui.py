@@ -35,6 +35,8 @@ class EditFrame(ttk.Frame):
         self.frame = ttk.Frame(self)
         self.frame.pack(pady=10, padx=10)
 
+
+        # Load sensor from current wiring and ports from current datalogger to show the port names in combobox
         def load_sensor():
             port_options = dataloggers[logger]["connection"]["ports"]
             for widget in self.frame.winfo_children():
@@ -63,7 +65,7 @@ class EditFrame(ttk.Frame):
                 # Save references to both comboboxes
                 self.entries.append((port_entry, color_entry))
             
-
+        # Save edited wiring 
         def save_changes():
             sensor = sensor_var.get()
             new_data = {}
@@ -79,12 +81,11 @@ class EditFrame(ttk.Frame):
             save_changes()
             controller.draw()
 
-
         sensor_menu.bind("<<ComboboxSelected>>", lambda e: load_sensor())
         load_sensor()
         
-
         ttk.Button(self, text="Save Changes", command=done).pack(pady=15)
+
         #Banner
         banner = Image.open("img/decorations/banner1.png").resize((2000,364))
         banner_tk = ImageTk.PhotoImage(banner)

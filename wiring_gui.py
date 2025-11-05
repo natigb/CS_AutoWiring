@@ -22,7 +22,7 @@ class WiringFrame(ttk.Frame):
         self.canvas_width = 1700
         self.canvas_height = 900
         self.mode = mode
-        # --- Scrollable canvas setup (hidden scrollbars) ---
+        # Scrollable canvas (hidden scrollbar)
         self.canvas = Canvas(self, bg=WHITE, highlightthickness=0,
                              width=self.canvas_width-100, height=500,
                              scrollregion=(0, 0, self.canvas_width, self.canvas_height))
@@ -35,7 +35,7 @@ class WiringFrame(ttk.Frame):
         # Update scrollregion whenever inner frame changes
         self.inner.bind("<Configure>", lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all")))
 
-        # --- Mouse wheel scrolling ---
+        # Scrolling with the mousewheel option
         def _on_mousewheel(event):
             if event.state & 0x0001:  # Shift key pressed -> horizontal scroll
                 self.canvas.xview_scroll(int(-1*(event.delta/120)), "units")
@@ -46,7 +46,7 @@ class WiringFrame(ttk.Frame):
         self.canvas.bind_all("<Button-4>", lambda e: self.canvas.yview_scroll(-1, "units"))  # Linux up
         self.canvas.bind_all("<Button-5>", lambda e: self.canvas.yview_scroll(1, "units"))   # Linux down
 
-        # --- Drawing canvas inside inner frame ---
+        # Drawing canvas in the inner frame
         self.drawing = Canvas(self.inner, width=self.canvas_width, height=self.canvas_height,
                               bg=WHITE, highlightthickness=0)
         self.drawing.pack()
@@ -68,8 +68,11 @@ class WiringFrame(ttk.Frame):
             self.drawing.create_text(self.center_x, self.center_y, text="CR1000X", font=("Arial", 14))
 
         # Data structures
+        # Sensor positions to save position of draggable sensors
         self.sensor_positions = {}
+        # Sensor items to save rectangle and label
         self.sensor_items = {}
+        # Wire items include positions and color
         self.wire_items = {}
 
         self._layout_sensors(self.mode)
@@ -81,8 +84,8 @@ class WiringFrame(ttk.Frame):
         self.drawing.bind("<B1-Motion>", self.on_drag)
         self.drawing.bind("<ButtonRelease-1>", self.on_release)
 
-        # Right-click save
-        self.drawing.bind("<Button-3>", self.save_canvas)
+        # Right-click save (deactivated)
+        #self.drawing.bind("<Button-3>", self.save_canvas)
 
     # --- Layout sensors ---
     def _layout_sensors(self, mode):
@@ -107,7 +110,7 @@ class WiringFrame(ttk.Frame):
 
             half_block = block_height / 2
 
-            # --- Clamp positions to keep everything inside the canvas ---
+            # Clamp positions so everything stays inside the canvas
             # Clamp Y so the rectangle doesn't go above top or below bottom
             if y - half_block < 0:
                 y = half_block
@@ -125,7 +128,7 @@ class WiringFrame(ttk.Frame):
             else:
                 color = DARK_COLOR
                 state_mode= "normal"
-            # --- Draw rectangle and label ---
+            # Draw rectangle and label
             rect = self.drawing.create_rectangle(
                 x - 50, y - half_block,
                 x + 50, y + half_block,
@@ -144,7 +147,7 @@ class WiringFrame(ttk.Frame):
             self.wire_items[sensor] = []
 
 
-    # --- Draw wires ---
+    # Draw wires 
     def _draw_all_wires(self, mode):
         for sensor in self.wiring:
             self._draw_sensor_wires(sensor, mode)
@@ -158,8 +161,10 @@ class WiringFrame(ttk.Frame):
         for which the wires are being drawn. It is used to identify the specific sensor for which the
         wiring connections are being visualized and drawn on the canvas
         :param mode: The `mode` parameter in the `_draw_sensor_wires` method is used to determine the
-        layout style for drawing sensor wires. It can have two possible results: compacted or draqn squares
+        layout style for drawing sensor wires. It can have two possible results: compacted or squares
         """
+
+        # Clear previous canvas to update when called
         for wid in self.wire_items[sensor]:
             self.drawing.delete(wid)
         self.wire_items[sensor].clear()
@@ -203,8 +208,7 @@ class WiringFrame(ttk.Frame):
             dot = self.drawing.create_oval(logger_x - 3, logger_y - 3,
                                            logger_x + 3, logger_y + 3,
                                            fill=color, outline="")
-            label_x =0
-            label_y=0
+            
             if mode == "compact":
                 compact_label = sensor + " ("+color_tag+") -> "+port
                 text1 = self.drawing.create_text(sx + (-60 if side == "left" else 60), exit_y - 7,
@@ -223,7 +227,9 @@ class WiringFrame(ttk.Frame):
 
             self.wire_items[sensor].extend([line, dot, text1, text2])
 
-    # --- Dragging ---
+    # Draggable object functions
+
+    # Find overlapping objects on click
     def on_press(self, event):
         for sensor, (rect, label) in self.sensor_items.items():
             items = self.drawing.find_overlapping(event.x, event.y, event.x, event.y)
@@ -232,7 +238,8 @@ class WiringFrame(ttk.Frame):
                 self.drag_data["x"] = event.x
                 self.drag_data["y"] = event.y
                 break
-
+    
+    # Update object positions on drag
     def on_drag(self, event):
         sensor = self.drag_data["sensor"]
         if sensor:
@@ -250,20 +257,7 @@ class WiringFrame(ttk.Frame):
 
             self._draw_sensor_wires(sensor, self.mode)
 
+    # Drop the selected sensor
     def on_release(self, event):
         self.drag_data["sensor"] = None
 
-    # --- Save ---
-    def save_canvas(self, event=None):
-        file_path = filedialog.asksaveasfilename(
-            defaultextension=".png",
-            filetypes=[("PNG files", "*.png")],
-            title="Save canvas as image"
-        )
-        if not file_path:
-            return
-
-        self.drawing.update()
-        ps = self.drawing.postscript(colormode='color')
-        image = Image.open(io.BytesIO(ps.encode('utf-8')))
-        image.save(file_path)

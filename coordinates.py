@@ -3,7 +3,7 @@ from tkinter import Canvas
 from PIL import Image, ImageTk
 from ports_coordenates import logger_ports
 """
-Auxiliary file to get port coordintaes of image when adding new datalogger/device
+Auxiliary file to get port coordinates of image when adding new datalogger/device
 """
 datalogger_image = "img/AM1632B.png"
 root = tk.Tk()
@@ -21,7 +21,7 @@ logger_width = logger_ports[datalogger_image]["image"][0]
 logger_height = logger_ports[datalogger_image]["image"][1]
 logger_top_left = (center_x - logger_width // 2, center_y - logger_height // 2)
 
-# Load and place datalogger image
+# Load and place dataogger image
 try:
     image = Image.open(datalogger_image).resize((logger_width, logger_height))
     logger_img = ImageTk.PhotoImage(image)

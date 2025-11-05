@@ -24,7 +24,7 @@ class AddSensorFrame(ttk.Frame):
         self.controller = controller
         self.configure(style="TFrame")
 
-        # --- Scrollable area ---
+        # Scrollable canvas area
         canvas = tk.Canvas(self, bg=WHITE, highlightthickness=0)
         scrollbar = tk.Scrollbar(self, orient="vertical", command=canvas.yview)
         scroll_frame = tk.Frame(canvas, bg=WHITE)
@@ -40,7 +40,7 @@ class AddSensorFrame(ttk.Frame):
         canvas.pack(side="left", fill="both", expand=True)
         scrollbar.pack(side="right", fill="y")
 
-        # --- Sensor basic info ---
+        # Sensor basic information
         ttk.Label(scroll_frame, text="Sensor Key (ID)").pack(fill="x")
         self.key_entry = tk.Entry(scroll_frame)
         self.key_entry.pack(fill="x", padx=10, pady=5)
@@ -62,13 +62,14 @@ class AddSensorFrame(ttk.Frame):
         self.type_combo.set("digital")  # default value
         self.type_combo.pack(fill="x", padx=10, pady=5)
 
-        # --- Protocols ---
+        # Protocols
         ttk.Label(scroll_frame, text="Protocols").pack(fill="x")
         self.protocols_frame = tk.Frame(scroll_frame, bg=WHITE)
         self.protocols_frame.pack(fill="both", expand=True, padx=10, pady=10)
 
         self.protocol_blocks = []
 
+        # Add another protocol used when sensor can be connected in different ways (e.g. Single Ended or Differential )
         def add_protocol_block():
             block = tk.Frame(self.protocols_frame, bd=2, relief="groove", pady=5, bg=WHITE)
             block.pack(fill="x", pady=5)
@@ -88,6 +89,7 @@ class AddSensorFrame(ttk.Frame):
             wires_frame.pack(fill="x", padx=5, pady=5)
             wires = []
 
+            # Add new wire
             def add_wire_row():
                 row = tk.Frame(wires_frame, bg=WHITE)
                 row.pack(fill="x", pady=2)
@@ -110,8 +112,9 @@ class AddSensorFrame(ttk.Frame):
         ttk.Button(scroll_frame, text="Add Protocol", command=add_protocol_block).pack(pady=5)
         add_protocol_block()
 
-        # --- Save button ---
+        # Save sensor button
         ttk.Button(scroll_frame, text="Save Sensor", command=self.save_sensor).pack(pady=10)
+
         #Banner
         banner = Image.open("img/decorations/banner2.png").resize((600,800))
         banner_tk = ImageTk.PhotoImage(banner)
@@ -123,6 +126,7 @@ class AddSensorFrame(ttk.Frame):
         self.cs_banner_label.image = banner_tk 
         self.cs_banner_label.pack(side= "right",fill="x", pady=0)
 
+    # Save sensor to dictionary. Gets all data, builds the respective object and append it to sensors2 variable dictionary.py
     def save_sensor(self):
         key = self.key_entry.get().strip()
         if not key:
@@ -175,6 +179,7 @@ class AddSensorFrame(ttk.Frame):
 
         with open(DICT_FILE, "w", encoding="utf-8") as f:
             f.writelines(lines)
+        
         #Banner
         banner = Image.open("img/decorations/banner3.png").resize((550,260))
         banner_tk = ImageTk.PhotoImage(banner)
