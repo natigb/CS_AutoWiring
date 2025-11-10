@@ -1,10 +1,16 @@
-# ¡Bienvenidx a la wiki de CS_AutoWiring!
 
-CS Wiring Tool es una aplicación utilizada para generar diagramas de conexión entre los dataloggers y los sensores de Campbell Scientific.
-<img alt="t3" src="https://github.com/user-attachments/assets/86f817d3-b101-4592-a24b-bfdf95c859ae" />
-##
-[Manual de usuario](https://github.com/natigb/CS_AutoWiring/wiki/B.--Manual-de-usuario)
+### [Ir a la Wiki de CS_AutoWiring](https://github.com/natigb/CS_AutoWiring/wiki/)
 
-[Manual de programador](https://github.com/natigb/CS_AutoWiring/wiki/C.-Manual-de-programador)
+---
 
-[Nomenclatura de pines](https://github.com/natigb/CS_AutoWiring/wiki/D.-Anexo:-Nomenclatura-de-los-pines-de-los-Dataloggers)
+Repositorio de una herramienta de cableado realizada para uso interno en Campbell Scientific Centro Caribe.
+El archivo ejecutable se encuentra en la carpeta dist
+
+Desarrollo inicial por Natalia González Bermúdez
+
+---
+
+Repository of a wiring tool developed for internal use at Campbell Scientific Centro Carbe
+The executable file can be found in dist folder
+
+Initial Development by Natalia González Bermúdez
