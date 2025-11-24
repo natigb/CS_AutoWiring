@@ -181,6 +181,14 @@ class MainApp(tk.Tk):
             style="Custom.TCheckbutton"
         ).pack(fill="x", pady=5)
 
+        self.instruction_label = ttk.Label(
+            self.left_panel,
+            text= "To draw a wire in diagram:\nW → Toggle wire drawing mode\nLeft-click → Add a point \nEnter → Finalize current wire\nEsc → Cancel current wire & exit wire mode\nRight-click → Delete a wire or tag",
+            background=DARK_COLOR,
+            foreground=WHITE,
+            font= ("Segoe UI", 7)
+        )
+        self.instruction_label.pack(fill="x", pady=4)
         ttk.Button(self.left_panel, text="Save as image", command=self.save_current_diagram).pack(side = "bottom", fill="x", pady=5)
 
         # Right panel (dynamic content, grid layout)

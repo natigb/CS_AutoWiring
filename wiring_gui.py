@@ -41,6 +41,7 @@ class WiringFrame(ttk.Frame):
         self.wiring = wiring or {}
         self.datalogger_image = datalogger_image
         self.mode = mode
+        self.color_window = None
 
         # Canvas size (tweak as needed)
         self.canvas_width = 1700
@@ -293,6 +294,7 @@ class WiringFrame(ttk.Frame):
     # -------------------------
     def toggle_wire_mode(self, event=None):
         """Toggle wire-drawing mode on/off. When ON, sensor dragging disabled."""
+        
         self._create_color_picker_window()
         self.drawing_wire = not self.drawing_wire
         if self.drawing_wire:
@@ -381,6 +383,7 @@ class WiringFrame(ttk.Frame):
 
     def cancel_and_exit_wire_mode(self, event=None):
         """Cancel any in-progress preview and exit wire mode."""
+        self.color_window.destroy()
         if self.drawing_wire:
             self.current_wire_points = []
             self.clear_current_preview()
