@@ -122,6 +122,7 @@ class MainApp(tk.Tk):
         help_menu = Menu(menubar,font=SECONDARY_FONT, tearoff=0, bg=WHITE, fg=DARK_COLOR,
                           activebackground=PRIMARY_COLOR, activeforeground=DARK_COLOR)
         help_menu.add_command(label="Open documentation", command=self.open_doc)
+        help_menu.add_command(label="Draw manual wire", command=self.open_wire_mode_help)
         menubar.add_cascade(label="Help", menu=help_menu)
 
 
@@ -194,6 +195,10 @@ class MainApp(tk.Tk):
         self.show_home()
     def open_doc(self):
         webbrowser.open("https://github.com/natigb/CS_AutoWiring/wiki")
+
+    def open_wire_mode_help(self):
+        webbrowser.open("https://github.com/natigb/CS_AutoWiring/wiki/E.-Manual-Wire-Drawing-Mode")
+
     def toggle_mode(self):
         if self.compact_mode_flag.get():
             self.mode = "compact"
