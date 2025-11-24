@@ -12,7 +12,7 @@ Desarrollo inicial por Natalia González Bermúdez
 
 ### [Go to CS_AutoWiring Wiki](https://github.com/natigb/CS_AutoWiring/wiki/)
 
-Repository of a wiring tool developed for internal use at Campbell Scientific Centro Carbe
+Repository of a wiring tool developed for internal use at Campbell Scientific Centro Caribe
 The executable file can be found in dist folder
 
 Initial Development by Natalia González Bermúdez
