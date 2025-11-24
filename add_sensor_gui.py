@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 from PIL import Image, ImageTk
+import os, sys
 
 DICT_FILE = "dictionary.py"
 COLORS = ["Red", "Blue", "Green", "Black", "Gray", "Yellow", "Brown", "Orange", "White", "Purple", "Other"]
@@ -13,6 +14,14 @@ DARK_COLOR = "#4D4D4D"
 WHITE = "#FFFFFF"
 FONT = ("Segoe UI", 12, "bold")
 
+def resource_path(relative):
+    """Get absolute path for PyInstaller and development."""
+    if hasattr(sys, '_MEIPASS'):
+        base_path = sys._MEIPASS
+    else:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative)
 
 """
 This class represents a frame in a graphical user interface for adding a sensor to the dictionary. 
@@ -116,7 +125,7 @@ class AddSensorFrame(ttk.Frame):
         ttk.Button(scroll_frame, text="Save Sensor", command=self.save_sensor).pack(pady=10)
 
         #Banner
-        banner = Image.open("img/decorations/banner2.png").resize((600,800))
+        banner = Image.open(resource_path("img/decorations/banner2.png")).resize((600,800))
         banner_tk = ImageTk.PhotoImage(banner)
 
         self.cs_banner_label = ttk.Label(
@@ -181,7 +190,7 @@ class AddSensorFrame(ttk.Frame):
             f.writelines(lines)
         
         #Banner
-        banner = Image.open("img/decorations/banner3.png").resize((550,260))
+        banner = Image.open(resource_path("img/decorations/banner3.png")).resize((550,260))
         banner_tk = ImageTk.PhotoImage(banner)
 
         self.cs_banner_label = ttk.Label(

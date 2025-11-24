@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk
 from dictionary import dataloggers
+import os, sys
 
 PRIMARY_COLOR = "#EABE0D"
 DARK_COLOR = "#4D4D4D"
@@ -9,6 +10,15 @@ WHITE = "#FFFFFF"
 FONT = ("Segoe UI", 10)
 
 COLORS = ["Red", "Blue", "Green", "Black", "Gray", "Yellow", "Brown", "Orange", "White", "Purple", "Other"]
+
+def resource_path(relative):
+    """Get absolute path for PyInstaller and development."""
+    if hasattr(sys, '_MEIPASS'):
+        base_path = sys._MEIPASS
+    else:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative)
 
 """
 This class represents a frame to edit the current wiring and change connections and cable colors as needed
@@ -87,7 +97,7 @@ class EditFrame(ttk.Frame):
         ttk.Button(self, text="Save Changes", command=done).pack(pady=15)
 
         #Banner
-        banner = Image.open("img/decorations/banner1.png").resize((2000,364))
+        banner = Image.open(resource_path("img/decorations/banner1.png")).resize((2000,364))
         banner_tk = ImageTk.PhotoImage(banner)
 
         self.cs_banner_label = ttk.Label(

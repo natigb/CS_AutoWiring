@@ -20,7 +20,14 @@ FONT = ("Segoe UI", 10, "bold")
 SECONDARY_FONT = ("Segoe UI", 10)
 
 wiring = "no wires"
+def resource_path(relative):
+    """Get absolute path for PyInstaller and development."""
+    if hasattr(sys, '_MEIPASS'):
+        base_path = sys._MEIPASS
+    else:
+        base_path = os.path.abspath(".")
 
+    return os.path.join(base_path, relative)
 """
 Main App Tk window
 """
@@ -30,7 +37,7 @@ class MainApp(tk.Tk):
         self.title("Wiring Tool")
         self.geometry("1700x900")
         self.configure(bg=DARK_COLOR)
-        self.icon = PhotoImage(file="img/icons/CS_logo.png")
+        self.icon = PhotoImage(file=resource_path("img/icons/CS_logo.png"))
 
         # Set as window icon
         self.iconphoto(False, self.icon)
@@ -78,13 +85,13 @@ class MainApp(tk.Tk):
         )
 
         # ---------------- Menu Bar ----------------
-        SC_icon = Image.open("img/icons/SC_icon.png").resize((20, 20))
+        SC_icon = Image.open(resource_path("img/icons/SC_icon.png")).resize((20, 20))
         SC_icon_tk = ImageTk.PhotoImage(SC_icon)
-        Save_icon = Image.open("img/icons/Save_icon.png").resize((20, 20))
+        Save_icon = Image.open(resource_path("img/icons/Save_icon.png")).resize((20, 20))
         Save_icon_tk = ImageTk.PhotoImage(Save_icon)
-        New_icon = Image.open("img/icons/New_icon.png").resize((20, 20))
+        New_icon = Image.open(resource_path("img/icons/New_icon.png")).resize((20, 20))
         New_icon_tk = ImageTk.PhotoImage(New_icon)
-        Restart_icon = Image.open("img/icons/Restart_icon.png").resize((20, 20))
+        Restart_icon = Image.open(resource_path("img/icons/Restart_icon.png")).resize((20, 20))
         Restart_icon_tk = ImageTk.PhotoImage(Restart_icon)
 
         menubar = Menu(self,font=FONT, bg=PRIMARY_COLOR, fg=WHITE,
@@ -130,7 +137,7 @@ class MainApp(tk.Tk):
         self.compact_mode_flag = tk.BooleanVar(value=False)
         self.mode = "Default"
 
-        cs_logo = Image.open("img/decorations/cs_logo.png").resize((219, 196))
+        cs_logo = Image.open(resource_path("img/decorations/cs_logo.png")).resize((219, 196))
         cs_logo_tk = ImageTk.PhotoImage(cs_logo)
 
         # Create the label and store a reference to the image
@@ -201,7 +208,7 @@ class MainApp(tk.Tk):
             self.regulator = None
 
         if self.show_regulator.get():
-            image = Image.open("img/regulator.png").resize((311, 360))
+            image = Image.open(resource_path("img/regulator.png")).resize((311, 360))
             self.regulator_img = ImageTk.PhotoImage(image)
             self.regulator = ttk.Label(self.right_panel, image=self.regulator_img, background=WHITE)
             self.regulator.grid(row=0, column=0, sticky="e", pady=10)
@@ -249,7 +256,7 @@ class MainApp(tk.Tk):
 
     def show_home(self):
         self.clear_right_panel()
-        background = Image.open("img/decorations/background.png")#.resize((2000, 912))
+        background = Image.open(resource_path("img/decorations/background.png"))#.resize((2000, 912))
         background_tk = ImageTk.PhotoImage(background)
 
         self.result_label = ttk.Label(

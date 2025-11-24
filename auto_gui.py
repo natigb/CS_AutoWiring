@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk, PhotoImage
 from dictionary import dataloggers, sensors2
 from PIL import Image, ImageTk
+import os, sys
 
 PRIMARY_COLOR = "#EABE0D"
 DARK_COLOR = "#4D4D4D"
@@ -9,6 +10,14 @@ WHITE = "#FFFFFF"
 FONT = ("Segoe UI", 12, "bold")
 sensor_counter = 0
 
+def resource_path(relative):
+    """Get absolute path for PyInstaller and development."""
+    if hasattr(sys, '_MEIPASS'):
+        base_path = sys._MEIPASS
+    else:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative)
 """
 Toplevel window to add and delete sensors and choose datalogger and create a new wiring diagram. 
 It's accesed through main_gui.py interface. (File-> New Wiring)
@@ -26,7 +35,7 @@ def open_selection_interface():
     top.geometry("800x900")
     top.configure(bg=DARK_COLOR)
     top.resizable(False, False)
-    icon = PhotoImage(file="img/icons/CS_logo.png")
+    icon = PhotoImage(file=resource_path("img/icons/CS_logo.png"))
 
     # Set as window icon
     top.iconphoto(False, icon)
@@ -144,7 +153,7 @@ def open_selection_interface():
     ttk.Button(left_frame, text="Save & Close", command=top.destroy).pack(anchor="w", pady=5, fill="x")
     
     # Banner
-    banner = Image.open("img/decorations/banner3.png").resize((550,260))
+    banner = Image.open(resource_path("img/decorations/banner3.png")).resize((550,260))
     banner_tk = ImageTk.PhotoImage(banner)
 
     cs_banner_label = ttk.Label(
